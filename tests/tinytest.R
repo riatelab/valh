@@ -15,5 +15,5 @@
 #   wait <- function() {
 #     Sys.sleep(1)
 #   }
-#   tinytest::test_package("val")
+#   tinytest::test_package("valh")
 # }

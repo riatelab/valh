@@ -1,5 +1,5 @@
 #' @title Shortest Paths and Travel Time from OpenStreetMap via an Valhalla API
-#' @name val
+#' @name valh
 #' @description An interface between R and the Valhalla API.\cr
 #' Valhalla is a routing
 #' service based on OpenStreetMap data.
