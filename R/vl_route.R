@@ -1,0 +1,130 @@
+#' @name vl_route
+#' @title Get the Shortest Path Between Two Points
+#' @description Build and send a Valhalla API query to get the travel geometry
+#' between two points. This function interfaces with the \emph{route} Valhalla
+#' service.\cr
+#' Use \code{src} and \code{dst} to get the shortest direct route between
+#' two points.\cr
+#' Use \code{loc} to get the shortest route between two points using
+#' ordered waypoints.
+#'
+#' @param src starting point of the route.
+#' \code{src} can be: \itemize{
+#'   \item a vector of coordinates (longitude and latitude, WGS 84),
+#'   \item a data.frame of longitudes and latitudes (WGS 84),
+#'   \item a matrix of longitudes and latitudes (WGS 84),
+#'   \item an sfc object of type POINT,
+#'   \item an sf object of type POINT.
+#' }
+#' If relevant, row names are used as identifiers.\cr
+#' If \code{src} is a data.frame, a matrix, an sfc object or an sf object then
+#' only the first row or element is considered.
+#' @param dst destination of the route.
+#' \code{dst} can be: \itemize{
+#'   \item a vector of coordinates (longitude and latitude, WGS 84),
+#'   \item a data.frame of longitudes and latitudes (WGS 84),
+#'   \item a matrix of longitudes and latitudes (WGS 84),
+#'   \item an sfc object of type POINT,
+#'   \item an sf object of type POINT.
+#' }
+#' If relevant, row names are used as identifiers.\cr
+#' If \code{dst} is a data.frame, a matrix, an sfc object or an sf object then
+#' only the first row or element is considered.
+#'
+#' @param loc starting point, waypoints (optional) and destination of the
+#' route. \code{loc} can be: \itemize{
+#'   \item a data.frame of longitudes and latitudes (WGS 84),
+#'   \item a matrix of longitudes and latitudes (WGS 84),
+#'   \item an sfc object of type POINT,
+#'   \item an sf object of type POINT.
+#' }
+#' The first row or element is the starting point then waypoints are used in
+#' the order they are stored in \code{loc} and the last row or element is
+#' the destination.\cr
+#' If relevant, row names are used as identifiers.\cr
+#' @param costing the costing model to use for the route. Default is
+#' "auto".\cr
+#' @param costing_options a list of options to use with the costing model
+#' (see https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options
+#' for more details about the options available for each costing model).
+#' Default is an empty list.\cr
+#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' (https://valhalla1.openstreetmap.de/).
+#' @return
+#' The output of this function is an sf LINESTRING of the shortest route.\cr
+#' It contains 4 fields: \itemize{
+#'   \item starting point identifier
+#'   \item destination identifier
+#'   \item travel time in minutes
+#'   \item travel distance in kilometers.
+#'   }
+vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
+  # Handle input points
+  if (missing(loc)) {
+    # From src to dst
+    src <- input_route(x = src, id = "src", single = TRUE)
+    dst <- input_route(x = dst, id = "dst", single = TRUE)
+    id1 <- src$id
+    id2 <- dst$id
+    oprj <- src$oprj
+    locs <- list(
+      list(lon = src$lon, lat = src$lat),
+      list(lon = dst$lon, lat = dst$lat)
+    )
+  } else {
+    # from src to dst via x, y, z... (data.frame or sf input)
+    loc <- input_route(x = loc, single = FALSE)
+    oprj <- loc$oprj
+    id1 <- loc$id1
+    id2 <- loc$id2
+    locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
+  }
+
+  # Build the JSON argument of the request
+  json <- list(
+    costing = costing,
+    locations = locs
+  )
+  if (is.list(costing_options) & length(costing_options) >= 0) {
+    json$costing_options <- list()
+    json$costing_options[[costing]] <- costing_options
+  }
+
+  # Construct the URL
+  url <- paste0(base_url(val.server), 'route?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+
+  # Send the request and handle possible errors
+  e <- try(
+    {
+      req_handle <- curl::new_handle(verbose = FALSE)
+      curl::handle_setopt(req_handle, useragent = "valh_R_package")
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
+    silent = TRUE
+  )
+  if (inherits(e, "try-error")) {
+    stop(e, call. = FALSE)
+  }
+  test_http_error(r)
+
+  # Parse the response to a spatial data frame
+  res <- jsonlite::fromJSON(rawToChar(r$content))
+  gdf <- googlePolylines::decode(res$trip$legs$shape)[[1]] / 10
+
+  rosf <- sf::st_sf(
+    src = id1,
+    dst = id2,
+    duration = res$trip$summary$time / 60,
+    distance = res$trip$summary$length,
+    geometry = sf::st_as_sfc(paste0("LINESTRING(", paste0(gdf$lon, " ", gdf$lat, collapse = ", "), ")")),
+    crs = 4326,
+    row.names = paste(id1, id2, sep = "_")
+  )
+
+  # Use input CRS if any
+  if (!is.na(oprj)) {
+    rosf <- sf::st_transform(rosf, oprj)
+  }
+
+  return(rosf)
+}
