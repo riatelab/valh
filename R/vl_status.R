@@ -45,10 +45,11 @@ vl_status <- function(val.server = 'https://valhalla1.openstreetmap.de/',
     res$osm_changeset <- as.POSIXct(res$osm_changeset)
   }
 
-  ## TODO insert code to deal with bbboxes
-  ## BUT remove for now, does not print well
-  if(!is.null(res$bbox)){
-    res$bbox <- NULL
+  if (!is.null(res$bbox)) {
+    res$bbox <- sf::st_read(
+      jsonlite::toJSON(res$bbox, auto_unbox = T),
+      quiet = TRUE
+    )
   }
 
   return(res)
