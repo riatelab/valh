@@ -45,9 +45,9 @@ vl_status <- function(val.server = 'https://valhalla1.openstreetmap.de/',
     res$osm_changeset <- as.POSIXct(res$osm_changeset)
   }
 
+  ## TODO insert code to deal with bbboxes
+  ## BUT remove for now, does not print well
   if(!is.null(res$bbox)){
-    ## TODO insert code to deal with bbboxes
-    ## BUT remove for now, does not print well
     res$bbox <- NULL
   }
 

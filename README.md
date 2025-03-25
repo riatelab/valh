@@ -20,6 +20,7 @@ This package relies on the usage of a running Valhalla service (tested with v3.4
 - `vl_elevation()`: Get elevation data at given location(s).
 - `vl_isochrone()`: Get isochrone polygons.
 - `vl_status()`: Get information on Valhalla service.
+- `vl_matrix()`: Get travel time matrices between points.
 - ...
 
 ## Installation
