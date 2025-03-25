@@ -1,7 +1,7 @@
 Package: valh
 Type: Package
 Title: Interface Between R and the OpenStreetMap-Based Routing Service Valhalla
-Version: 4.2.0
+Version: 0.1.0
 Authors@R: c(person("Timothée", "Giraud", email = "timothee.giraud@cnrs.fr",
     role = c("cre","aut"),  comment = c(ORCID = "0000-0002-1932-3323")),
     person("Matthieu", "Viry", role = c("aut"),
@@ -13,20 +13,15 @@ Description: An interface between R and the 'Valhalla' API. 'Valhalla' is a
     travel distances matrices (travel time and kilometric distance).
 License: GPL (>= 3)
 Imports:
-    RcppSimdJson,
+    jsonlite,
     curl,
     utils, 
-    mapiso,
-    googlePolylines,
     sf
 Depends:
     R (>= 3.5.0)
 Suggests: 
-    mapsf, 
-    tinytest, 
-    covr, 
-    terra
-URL: https://github.com/riatelab/val
-BugReports: https://github.com/riatelab/val/issues
+    tinytest
+URL: https://github.com/riatelab/valh
+BugReports: https://github.com/riatelab/valh/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.2
