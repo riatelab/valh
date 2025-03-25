@@ -26,8 +26,8 @@ The csv dataset uses WGS 84 (EPSG:4326).\cr
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/riatelab/val}
-  \item Report bugs at \url{https://github.com/riatelab/val/issues}
+  \item \url{https://github.com/riatelab/valh}
+  \item Report bugs at \url{https://github.com/riatelab/valh/issues}
 }
 
 }
