@@ -7,7 +7,6 @@
 vl_elevation(
   loc,
   sampling_dist = NA,
-  sf = F,
   val.server = "https://valhalla1.openstreetmap.de/"
 )
 }
@@ -24,22 +23,13 @@ vl_elevation(
 \item{sampling_dist}{the distance between each point to sample the elevation
 (in meters). Default is 'NA' (no sampling).}
 
-\item{sf}{a logical indicating whether to return an sf object.
-Default is 'FALSE', which returns a list with two elements: 'range_height'
-and 'shape'.
-If 'TRUE', an sf object is returned with the following fields: 'distance'
-(the distance from the first points), 'height' (the sampled height on the DEM)
-and 'geometry' (the geometry of the sampled point).}
-
 \item{val.server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
-If 'sf' is 'TRUE', an sf object is returned with the following
-fields: 'distance', 'height' and 'geometry'.
-If 'sf' is 'FALSE', a list with two elements is returned: 'range_height'
-(the distance and height of the sampled points) and 'shape' (the latitude
-and longitude of the points at which the elevation was sampled).
+An sf POINT object is returned with the following fields: 'distance'
+(the distance from the first points), 'height' (the sampled height on the DEM)
+and 'geometry' (the geometry of the sampled point).
 }
 \description{
 Build and send a Valhalla API query to get the elevation at a

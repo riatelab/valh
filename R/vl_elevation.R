@@ -15,21 +15,13 @@
 #' }
 #' @param sampling_dist the distance between each point to sample the elevation
 #' (in meters). Default is 'NA' (no sampling).
-#' @param sf a logical indicating whether to return an sf object.
-#' Default is 'FALSE', which returns a list with two elements: 'range_height'
-#' and 'shape'.
-#' If 'TRUE', an sf object is returned with the following fields: 'distance'
-#' (the distance from the first points), 'height' (the sampled height on the DEM)
-#' and 'geometry' (the geometry of the sampled point).
 #' @param val.server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
-#' @returns If 'sf' is 'TRUE', an sf object is returned with the following
-#' fields: 'distance', 'height' and 'geometry'.
-#' If 'sf' is 'FALSE', a list with two elements is returned: 'range_height'
-#' (the distance and height of the sampled points) and 'shape' (the latitude
-#' and longitude of the points at which the elevation was sampled).
+#' @returns An sf POINT object is returned with the following fields: 'distance'
+#' (the distance from the first points), 'height' (the sampled height on the DEM)
+#' and 'geometry' (the geometry of the sampled point).
 #' @export
-vl_elevation <- function(loc, sampling_dist = NA, sf = F, val.server = 'https://valhalla1.openstreetmap.de/') {
+vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla1.openstreetmap.de/') {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
@@ -66,18 +58,14 @@ vl_elevation <- function(loc, sampling_dist = NA, sf = F, val.server = 'https://
   # Parse the response
   res <- jsonlite::fromJSON(rawToChar(r$content))
 
-  if (sf == T) {
-    gdf <- sf::st_sf(
-      distance = res$range_height[,1],
-      height = res$range_height[,2],
-      geometry = sf::st_as_sfc(paste0("POINT(", res$shape$lon, " ", res$shape$lat, ")")),
-      crs = 4326
-    )
-    if (!is.na(oprj)) {
-      gdf <- sf::st_transform(gdf, oprj)
-    }
-    return(gdf)
-  } else {
-    return(res)
+  gdf <- sf::st_sf(
+    distance = res$range_height[,1],
+    height = res$range_height[,2],
+    geometry = sf::st_as_sfc(paste0("POINT(", res$shape$lon, " ", res$shape$lat, ")")),
+    crs = 4326
+  )
+  if (!is.na(oprj)) {
+    gdf <- sf::st_transform(gdf, oprj)
   }
+  return(gdf)
 }
