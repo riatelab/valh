@@ -19,6 +19,7 @@ This package relies on the usage of a running Valhalla service (tested with v3.4
 - `vl_locate()`: Get the nearest point on the road network.
 - `vl_elevation()`: Get elevation data at given location(s).
 - `vl_isochrone()`: Get isochrone polygons.
+- `vl_status()`: Get information on Valhalla service.
 - ...
 
 ## Installation
@@ -27,18 +28,18 @@ This package relies on the usage of a running Valhalla service (tested with v3.4
 
 ```R
 # install.packages("remotes")
-remotes::install_github("riatelab/val")
+remotes::install_github("riatelab/valh")
 ```
 
 - Stable version from CRAN:
 
 ```R
-install.packages("val")
+install.packages("valh")
 ```
 
 ## Community Guidelines
 
-One can contribute to the package through [pull requests](https://github.com/riatelab/val/pulls) and
-report issues or ask questions [here](https://github.com/riatelab/val/issues).
-See the [CONTRIBUTING.md](https://github.com/riatelab/val/blob/master/CONTRIBUTING.md)
+One can contribute to the package through [pull requests](https://github.com/riatelab/valh/pulls) and
+report issues or ask questions [here](https://github.com/riatelab/valh/issues).
+See the [CONTRIBUTING.md](https://github.com/riatelab/valh/blob/master/CONTRIBUTING.md)
 file for detailed instructions.

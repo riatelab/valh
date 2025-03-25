@@ -4,7 +4,7 @@ base_url <- function(url) {
   if (!grepl("^http(s)?://", url)) {
     stop("Invalid URL", call. = FALSE)
   }
-  if (substr(url, nchar(url), nchar(url)) != "/") {
+  if (!endsWith(x = url, "/")) {
     url <- paste0(url, "/")
   }
   return(url)
