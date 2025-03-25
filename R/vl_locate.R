@@ -58,7 +58,7 @@ vl_locate <- function(loc, verbose = F, costing="auto", costing_options=list(), 
 
   if (length(locs) == 1) {
     # If there is only one input point, return a single sf object
-    gdf <- st_as_sf(
+    gdf <- sf::st_as_sf(
       as.data.frame(res$edges),
       coords = c("correlated_lat", "correlated_lon"),
       crs = 4326
@@ -71,7 +71,7 @@ vl_locate <- function(loc, verbose = F, costing="auto", costing_options=list(), 
     # If there is more than one input point, return a list of sf objects,
     # one for each input point
     li <- lapply(1:length(res$edges), function(i) {
-      t <- st_as_sf(
+      t <- sf::st_as_sf(
         as.data.frame(res$edges[[i]]),
         coords = c("correlated_lat", "correlated_lon"),
         crs = 4326

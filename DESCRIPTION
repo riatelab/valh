@@ -14,6 +14,7 @@ Description: An interface between R and the 'Valhalla' API. 'Valhalla' is a
 License: GPL (>= 3)
 Imports:
     jsonlite,
+    googlePolylines,
     curl,
     utils, 
     sf

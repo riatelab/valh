@@ -1,5 +1,5 @@
-#' Ensure that the input is a valid URL
-#' and add the missing trailing slash if not present.
+# Ensure that the input is a valid URL
+# and add the missing trailing slash if not present.
 base_url <- function(url) {
   if (!grepl("^http(s)?://", url)) {
     stop("Invalid URL", call. = FALSE)
@@ -46,8 +46,8 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
       }
     }
     if (inherits(x = x, what = c("sfc", "sf"))) {
-      oprj <- st_crs(x)
-      if (length(st_geometry(x)) > 1) {
+      oprj <- sf::st_crs(x)
+      if (length(sf::st_geometry(x)) > 1) {
         message(paste0('Only the first row/element of "', id, '" is used.'))
       }
       if (inherits(x, "sfc")) {
@@ -100,8 +100,8 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
     }
   } else {
     if (inherits(x = x, what = c("sfc", "sf"))) {
-      oprj <- st_crs(x)
-      lx <- length(st_geometry(x))
+      oprj <- sf::st_crs(x)
+      lx <- length(sf::st_geometry(x))
       if (lx < 2) {
         stop('"loc" should have at least 2 rows or elements.',
              call. = FALSE
@@ -174,8 +174,8 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
 input_locate <- function(x, id, all.ids = FALSE) {
   oprj <- NA
   if (inherits(x = x, what = c("sfc", "sf"))) {
-    oprj <- st_crs(x)
-    lx <- length(st_geometry(x))
+    oprj <- sf::st_crs(x)
+    lx <- length(sf::st_geometry(x))
     type <- sf::st_geometry_type(x, by_geometry = FALSE)
     type <- as.character(unique(type))
     if (length(type) > 1 || type != "POINT") {
