@@ -14,7 +14,7 @@
 #' @param costing the costing model to use for the route. Default is
 #' "auto".\cr
 #' @param costing_options a list of options to use with the costing model
-#' (see https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options
+#' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
 #' Default is an empty list.\cr
 #' @param val.server the URL of the Valhalla server. Default is the demo server

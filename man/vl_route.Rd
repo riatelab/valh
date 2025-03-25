@@ -54,7 +54,7 @@ If relevant, row names are used as identifiers.\cr}
 "auto".\cr}
 
 \item{costing_options}{a list of options to use with the costing model
-(see https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options
+(see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 

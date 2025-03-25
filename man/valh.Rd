@@ -9,7 +9,7 @@
 An interface between R and the Valhalla API.\cr
 Valhalla is a routing
 service based on OpenStreetMap data.
-See <https://valhalla.github.io/valhalla/> for more
+See \url{https://valhalla.github.io/valhalla/} for more
 information. This package enables the computation of routes, trips,
 isochrones and
 travel distances matrices (travel time and kilometric distance).\cr
