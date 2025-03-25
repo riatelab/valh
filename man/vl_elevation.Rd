@@ -72,7 +72,7 @@ route <- vl_route(src = src, dst = dst)
 
 # Split the LINESTRING into its composing points
 pts_route <- sf::st_cast(route, "POINT")
-# Ask for the eleveation at these points
+# Ask for the elevation at these points
 elev4 <- vl_elevation(loc = pts_route)
 
 # Plot the elevation profile
