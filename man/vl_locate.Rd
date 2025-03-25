@@ -35,6 +35,12 @@ Default is an empty list.\cr}
 \item{val.server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
+\value{
+If there is only one input point, return a single sf object
+containing the nearest point(s) on the road network.
+If there is more than one input point, return a list of sf objects,
+one for each input point.
+}
 \description{
 This function interfaces with the \emph{nearest} Valhalla
 service.\cr
