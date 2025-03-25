@@ -204,9 +204,6 @@ input_locate <- function(x, id, all.ids = FALSE) {
   }
   if (inherits(x = x, what = c("data.frame", "matrix"))) {
     lx <- nrow(x)
-    if (lx < 2) {
-      stop('"loc" should have at least 2 rows.', call. = FALSE)
-    }
     if (ncol(x) == 2 && is.numeric(x[, 1, drop = TRUE]) && is.numeric(x[, 2, drop = TRUE])) {
       lon <- clean_coord(x[, 1, drop = TRUE])
       lat <- clean_coord(x[, 2, drop = TRUE])
