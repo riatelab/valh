@@ -58,6 +58,7 @@
 #'   \item travel time in minutes
 #'   \item travel distance in kilometers.
 #'   }
+#' @export
 vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
   # Handle input points
   if (missing(loc)) {

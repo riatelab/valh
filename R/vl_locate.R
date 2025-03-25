@@ -19,6 +19,11 @@
 #' Default is an empty list.\cr
 #' @param val.server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
+#' @returns If there is only one input point, return a single sf object
+#' containing the nearest point(s) on the road network.
+#' If there is more than one input point, return a list of sf objects,
+#' one for each input point.
+#' @export
 vl_locate <- function(loc, verbose = F, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
