@@ -47,8 +47,8 @@
 #' @export
 vl_isochrone <- function(
   center,
-  times = c(15, 30, 45),
-  distances = NULL,
+  times,
+  distances,
   costing = "auto",
   costing_options = list(),
   val.server="https://valhalla1.openstreetmap.de/"
@@ -59,9 +59,11 @@ vl_isochrone <- function(
   locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
   # Handle the times and distances arguments
-  if (!is.null(times)) {
+  if (!missing(times) && !missing(distances)) {
+    stop("You must provide either 'times' or 'distances', not both")
+  } else if (!missing(times)) {
     contours <- lapply(times, function(x) list(time = x))
-  } else if (!is.null(distances)) {
+  } else if (!missing(distances)) {
     contours <- lapply(distances, function(x) list(distance = x))
   } else {
     stop("You must provide either 'times' or 'distances'")

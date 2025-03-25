@@ -6,8 +6,8 @@
 \usage{
 vl_isochrone(
   center,
-  times = c(15, 30, 45),
-  distances = NULL,
+  times,
+  distances,
   costing = "auto",
   costing_options = list(),
   val.server = "https://valhalla1.openstreetmap.de/"
