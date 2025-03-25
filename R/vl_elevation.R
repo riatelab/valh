@@ -20,6 +20,28 @@
 #' @returns An sf POINT object is returned with the following fields: 'distance'
 #' (the distance from the first points), 'height' (the sampled height on the DEM)
 #' and 'geometry' (the geometry of the sampled point).
+#'
+#' @examples
+#' \dontrun{
+#' # Inputs are data frames
+#' apotheke.df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
+#' # The first 5 points
+#' pts <- apotheke.df[1:5, c("lon", "lat")]
+#' # Ask for the elevation at these points
+#' vl_elevation(loc = pts)
+#'
+#' # Inputs are sf points
+#' library(sf)
+#' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
+#'                        quiet = TRUE)
+#' # The first 5 points
+#' pts <- apotheke.sf[1:5, ]
+#' # Ask for the elevation at these points
+#' vl_elevation(loc = pts)
+#' # Ask for elevation between the first and the second points,
+#' # sampling every 100 meters
+#' vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
+#' }
 #' @export
 vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla1.openstreetmap.de/') {
   # Handle input point(s)

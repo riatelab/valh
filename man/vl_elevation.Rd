@@ -38,3 +38,25 @@ This function interfaces with the \emph{height} service.\cr
 If \code{sampling_dist} is provided, the elevation is sampled at regular
 intervals along the input locations.
 }
+\examples{
+\dontrun{
+# Inputs are data frames
+apotheke.df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
+# The first 5 points
+pts <- apotheke.df[1:5, c("lon", "lat")]
+# Ask for the elevation at these points
+vl_elevation(loc = pts)
+
+# Inputs are sf points
+library(sf)
+apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
+                       quiet = TRUE)
+# The first 5 points
+pts <- apotheke.sf[1:5, ]
+# Ask for the elevation at these points
+vl_elevation(loc = pts)
+# Ask for elevation between the first and the second points,
+# sampling every 100 meters
+vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
+}
+}
