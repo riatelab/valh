@@ -28,19 +28,38 @@
 #' # The first 5 points
 #' pts <- apotheke.df[1:5, c("lon", "lat")]
 #' # Ask for the elevation at these points
-#' vl_elevation(loc = pts)
+#' elev1 <- vl_elevation(loc = pts)
 #'
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
 #'                        quiet = TRUE)
 #' # The first 5 points
-#' pts <- apotheke.sf[1:5, ]
+#' pts2 <- apotheke.sf[1:5, ]
 #' # Ask for the elevation at these points
-#' vl_elevation(loc = pts)
+#' elev2 <- vl_elevation(loc = pts2)
 #' # Ask for elevation between the first and the second points,
 #' # sampling every 100 meters
-#' vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
+#' elev3 <- vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
+#' # Plot the corresponding elevation profile
+#' plot(as.matrix(st_drop_geometry(elev3)), type = 'l')
+#'
+#' # Input is a route (sf LINESTRING) from vl_route
+#' # Compute the route between the first and the second points
+#' library(sf)
+#' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
+#'                        quiet = TRUE)
+#' src <- apotheke.sf[1, ]
+#' dst <- apotheke.sf[2, ]
+#' route <- vl_route(src = src, dst = dst)
+#'
+#' # Split the LINESTRING into its composing points
+#' pts_route <- sf::st_cast(route, "POINT")
+#' # Ask for the elevation at these points
+#' elev4 <- vl_elevation(loc = pts_route)
+#'
+#' # Plot the elevation profile
+#' plot(as.matrix(st_drop_geometry(elev4)), type = 'l')
 #' }
 #' @export
 vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla1.openstreetmap.de/') {

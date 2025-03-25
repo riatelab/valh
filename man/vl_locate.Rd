@@ -45,3 +45,30 @@ one for each input point.
 This function interfaces with the \emph{nearest} Valhalla
 service.\cr
 }
+\examples{
+\dontrun{
+# Inputs are data frames
+apotheke.df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
+
+loc <- apotheke.df[1, c("lon", "lat")]
+
+# Ask for the nearest point on the road network at this point
+# using "auto" costing model
+on_road_1 <- vl_locate(loc = loc)
+
+# Inputs are sf points
+library(sf)
+apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
+                       quiet = TRUE)
+
+# Ask for one point
+locsf1 <- apotheke.sf[1, ]
+# The result is a single sf object
+on_road_2 <- vl_locate(loc = locsf)
+
+# Ask for multiple points
+locsf2 <- apotheke.sf[1:3, ]
+# The result is a list of sf objects
+on_road_3 <- vl_locate(loc = locsf2)
+}
+}

@@ -86,16 +86,21 @@ apotheke.df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
 src <- apotheke.df[1, c("lon", "lat")]
 dst <- apotheke.df[2, c("lon", "lat")]
 # Route between the two points, using bicycle costing model
-vl_route(src=src, dst=dst, costing = "bicycle")
+route1 <- vl_route(src = src, dst = dst, costing = "bicycle")
 
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
                        quiet = TRUE)
-src <- apotheke.sf[1, ]
-dst <- apotheke.sf[2, ]
+srcsf <- apotheke.sf[1, ]
+dstsf <- apotheke.sf[2, ]
 # Route between the two points, using bicycle costing model and a custom
 # costing option
-vl_route(src=src, dst=dst, costing = "bicycle", costing_options = list(cycling_speed=19))
+route2 <- vl_route(
+  src = srcsf,
+  dst = dstsf,
+  costing = "bicycle",
+  costing_options = list(cycling_speed=19)
+)
 }
 }
