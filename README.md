@@ -16,12 +16,12 @@ This package relies on the usage of a running Valhalla service (tested with v3.4
 ## Features
 
 - `vl_route()`: Get route between locations.
+- `vl_matrix()`: Get travel time matrices between points.
 - `vl_locate()`: Get the nearest point on the road network.
 - `vl_elevation()`: Get elevation data at given location(s).
 - `vl_isochrone()`: Get isochrone polygons.
+- `vl_optimized_route()`: Get optimized route between locations.
 - `vl_status()`: Get information on Valhalla service.
-- `vl_matrix()`: Get travel time matrices between points.
-- ...
 
 ## Installation
 
