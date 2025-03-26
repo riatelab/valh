@@ -111,7 +111,7 @@ vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.
     costing = costing,
     locations = locs
   )
-  if (is.list(costing_options) & length(costing_options) >= 0) {
+  if (is.list(costing_options) & length(costing_options) > 0) {
     json$costing_options <- list()
     json$costing_options[[costing]] <- costing_options
   }
