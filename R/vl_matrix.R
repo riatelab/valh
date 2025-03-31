@@ -69,7 +69,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' distA3 <- vl_matrix(loc = apotheke.sf[1:10, ])
 #' # First 5 rows and columns
 #' distA3$durations[1:5, 1:5]
@@ -82,8 +83,7 @@
 #' @export
 vl_matrix <- function(src, dst, loc,
                       costing = "auto", costing_options = list(),
-                      val.server = 'https://valhalla1.openstreetmap.de/'){
-
+                      val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (!missing(loc)) {
     dst_r <- src_r <- input_table(x = loc, id = "loc")
@@ -107,8 +107,10 @@ vl_matrix <- function(src, dst, loc,
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'sources_to_targets?json=',
-                jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(
+    base_url(val.server), "sources_to_targets?json=",
+    jsonlite::toJSON(json, auto_unbox = TRUE)
+  )
 
   e <- try(
     {
@@ -128,21 +130,22 @@ vl_matrix <- function(src, dst, loc,
   res <- jsonlite::fromJSON(rawToChar(r$content))
 
   # Extract matrices
-  zdi <- lapply(res$sources_to_targets, function(x)x$distance)
-  zdu <- lapply(res$sources_to_targets, function(x)x$time)
+  zdi <- lapply(res$sources_to_targets, function(x) x$distance)
+  zdu <- lapply(res$sources_to_targets, function(x) x$time)
   ncol <- nrow(dst_r)
   mat_durations <- matrix(unlist(zdu, use.names = FALSE), ncol = ncol, byrow = TRUE)
   mat_distances <- matrix(unlist(zdi, use.names = FALSE), ncol = ncol, byrow = TRUE)
-  mat_durations <- round(mat_durations/60, 1)
+  mat_durations <- round(mat_durations / 60, 1)
   dimnames(mat_durations) <- dimnames(mat_distances) <- list(src_r$id, dst_r$id)
 
   # Extract actual sources and destinations
   sources <- res$sources
   destinations <- res$targets
 
-  return(list(durations = mat_durations,
-              distances = mat_distances,
-              sources = sources,
-              destinations = destinations))
-
+  return(list(
+    durations = mat_durations,
+    distances = mat_distances,
+    sources = sources,
+    destinations = destinations
+  ))
 }

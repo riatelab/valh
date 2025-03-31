@@ -13,14 +13,13 @@
 #'
 #' @examples
 #' vl_status("https://valhalla1.openstreetmap.de/", verbose = FALSE)
-vl_status <- function(val.server = 'https://valhalla1.openstreetmap.de/',
+vl_status <- function(val.server = "https://valhalla1.openstreetmap.de/",
                       verbose = FALSE) {
-
   # Build the JSON argument of the request
-  vrbs <- ifelse(isTRUE(verbose), '?json={"verbose": true}', '')
+  vrbs <- ifelse(isTRUE(verbose), '?json={"verbose": true}', "")
 
   # Construct the url
-  url <- paste0(base_url(val.server), 'status', vrbs)
+  url <- paste0(base_url(val.server), "status", vrbs)
 
   # Send the request and handle possible errors
   e <- try(
@@ -41,7 +40,7 @@ vl_status <- function(val.server = 'https://valhalla1.openstreetmap.de/',
 
   # Convert to human readable date format
   res$tileset_last_modified <- as.POSIXct(res$tileset_last_modified, "%Y-%m-%d %H:%M")
-  if (!is.null(res$osm_changeset)){
+  if (!is.null(res$osm_changeset)) {
     res$osm_changeset <- as.POSIXct(res$osm_changeset)
   }
 

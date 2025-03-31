@@ -33,7 +33,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' # The first 5 points
 #' pts2 <- apotheke.sf[1:5, ]
 #' # Ask for the elevation at these points
@@ -42,13 +43,14 @@
 #' # sampling every 100 meters
 #' elev3 <- vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
 #' # Plot the corresponding elevation profile
-#' plot(as.matrix(st_drop_geometry(elev3)), type = 'l')
+#' plot(as.matrix(st_drop_geometry(elev3)), type = "l")
 #'
 #' # Input is a route (sf LINESTRING) from vl_route
 #' # Compute the route between the first and the second points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' src <- apotheke.sf[1, ]
 #' dst <- apotheke.sf[2, ]
 #' route <- vl_route(src = src, dst = dst)
@@ -59,10 +61,10 @@
 #' elev4 <- vl_elevation(loc = pts_route)
 #'
 #' # Plot the elevation profile
-#' plot(as.matrix(st_drop_geometry(elev4)), type = 'l')
+#' plot(as.matrix(st_drop_geometry(elev4)), type = "l")
 #' }
 #' @export
-vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla1.openstreetmap.de/') {
+vl_elevation <- function(loc, sampling_dist = NA, val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
@@ -80,15 +82,15 @@ vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'height?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val.server), "height?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(
-  {
-    req_handle <- curl::new_handle(verbose = FALSE)
-    curl::handle_setopt(req_handle, useragent = "valh_R_package")
-    r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-  },
+    {
+      req_handle <- curl::new_handle(verbose = FALSE)
+      curl::handle_setopt(req_handle, useragent = "valh_R_package")
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
     silent = TRUE
   )
   if (inherits(e, "try-error")) {
@@ -100,8 +102,8 @@ vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla
   res <- jsonlite::fromJSON(rawToChar(r$content))
 
   gdf <- sf::st_sf(
-    distance = res$range_height[,1],
-    height = res$range_height[,2],
+    distance = res$range_height[, 1],
+    height = res$range_height[, 2],
     geometry = sf::st_as_sfc(paste0("POINT(", res$shape$lon, " ", res$shape$lat, ")")),
     crs = 4326
   )

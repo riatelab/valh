@@ -37,7 +37,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #'
 #' # Ask for one point
 #' locsf1 <- apotheke.sf[1, ]
@@ -50,7 +51,7 @@
 #' on_road_3 <- vl_locate(loc = locsf2)
 #' }
 #' @export
-vl_locate <- function(loc, verbose = FALSE, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
+vl_locate <- function(loc, verbose = FALSE, costing = "auto", costing_options = list(), val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
@@ -68,15 +69,15 @@ vl_locate <- function(loc, verbose = FALSE, costing="auto", costing_options=list
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'locate?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val.server), "locate?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(
-  {
-    req_handle <- curl::new_handle(verbose = FALSE)
-    curl::handle_setopt(req_handle, useragent = "valh_R_package")
-    r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-  },
+    {
+      req_handle <- curl::new_handle(verbose = FALSE)
+      curl::handle_setopt(req_handle, useragent = "valh_R_package")
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
     silent = TRUE
   )
   if (inherits(e, "try-error")) {

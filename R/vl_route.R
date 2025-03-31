@@ -71,7 +71,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' srcsf <- apotheke.sf[1, ]
 #' dstsf <- apotheke.sf[2, ]
 #' # Route between the two points, using bicycle costing model and a custom
@@ -80,11 +81,11 @@
 #'   src = srcsf,
 #'   dst = dstsf,
 #'   costing = "bicycle",
-#'   costing_options = list(cycling_speed=19)
+#'   costing_options = list(cycling_speed = 19)
 #' )
 #' }
 #' @export
-vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
+vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (missing(loc)) {
     # From src to dst
@@ -117,7 +118,7 @@ vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'route?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val.server), "route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

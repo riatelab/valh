@@ -38,7 +38,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' # Extract the first point and compute isochrones at 15, 30, 45 and 60 minutes
 #' # using the "bicycle" costing model
 #' pt2 <- apotheke.sf[1, ]
@@ -46,13 +47,12 @@
 #' }
 #' @export
 vl_isochrone <- function(
-  center,
-  times,
-  distances,
-  costing = "auto",
-  costing_options = list(),
-  val.server="https://valhalla1.openstreetmap.de/"
-) {
+    center,
+    times,
+    distances,
+    costing = "auto",
+    costing_options = list(),
+    val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_route(x = center, single = TRUE, id = "center")
   oprj <- loc$oprj
@@ -82,15 +82,15 @@ vl_isochrone <- function(
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'isochrone?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val.server), "isochrone?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(
-  {
-    req_handle <- curl::new_handle(verbose = FALSE)
-    curl::handle_setopt(req_handle, useragent = "valh_R_package")
-    r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-  },
+    {
+      req_handle <- curl::new_handle(verbose = FALSE)
+      curl::handle_setopt(req_handle, useragent = "valh_R_package")
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
     silent = TRUE
   )
   if (inherits(e, "try-error")) {
@@ -104,5 +104,5 @@ vl_isochrone <- function(
     gdf <- sf::st_transform(gdf, oprj)
   }
 
-  return(sf::st_cast(gdf[, c('contour', 'metric')], 'MULTIPOLYGON'))
+  return(sf::st_cast(gdf[, c("contour", "metric")], "MULTIPOLYGON"))
 }

@@ -44,7 +44,8 @@
 #' # Inputs are sf points
 #' library(sf)
 #' apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-#'                        quiet = TRUE)
+#'   quiet = TRUE
+#' )
 #' pts2 <- apotheke.sf[1:6, ]
 #' # Compute the optimized route between the first 6 points
 #' # (starting point, 4 waypoints and final destination)
@@ -56,12 +57,11 @@
 #' }
 #' @export
 vl_optimized_route <- function(
-  loc,
-  end_at_start = FALSE,
-  costing = "auto",
-  costing_options = list(),
-  val.server = "https://valhalla1.openstreetmap.de/"
-) {
+    loc,
+    end_at_start = FALSE,
+    costing = "auto",
+    costing_options = list(),
+    val.server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (end_at_start) {
     loc <- rbind(loc, loc[1, ])
@@ -81,15 +81,15 @@ vl_optimized_route <- function(
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), 'optimized_route?json=', jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val.server), "optimized_route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(
-  {
-    req_handle <- curl::new_handle(verbose = FALSE)
-    curl::handle_setopt(req_handle, useragent = "valh_R_package")
-    r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-  },
+    {
+      req_handle <- curl::new_handle(verbose = FALSE)
+      curl::handle_setopt(req_handle, useragent = "valh_R_package")
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
     silent = TRUE
   )
   if (inherits(e, "try-error")) {
@@ -113,10 +113,10 @@ vl_optimized_route <- function(
 
   t <- do.call(rbind, lapply(
     seq_along(res$trip$legs$shape),
-    function (ix) {
+    function(ix) {
       coords <- googlePolylines::decode(res$trip$legs$shape[ix])[[1]] / 10
-      s <- res$trip$locations[ix,]$original_index + 1
-      e <- res$trip$locations[ix + 1,]$original_index + 1
+      s <- res$trip$locations[ix, ]$original_index + 1
+      e <- res$trip$locations[ix + 1, ]$original_index + 1
       # Handle the case where the route ends at the first point
       if (end_at_start && e > n_pts_input) {
         e <- 1
@@ -132,11 +132,11 @@ vl_optimized_route <- function(
   ))
 
   result$shape <- sf::st_sf(
-    start = unlist(t[, 'start']),
-    end = unlist(t[, 'end']),
-    geometry = sf::st_as_sfc(t[, 'geometry']),
+    start = unlist(t[, "start"]),
+    end = unlist(t[, "end"]),
+    geometry = sf::st_as_sfc(t[, "geometry"]),
     crs = 4326,
-    row.names = paste(t[, 'start'], t[, 'end'], sep = "_")
+    row.names = paste(t[, "start"], t[, "end"], sep = "_")
   )
 
   if (!is.na(oprj)) {
