@@ -66,7 +66,7 @@ vl_elevation <- function(loc, sampling_dist = NA, val.server = 'https://valhalla
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
-  locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
+  locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
   # Build the JSON argument of the request
   json <- list(

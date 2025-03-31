@@ -6,7 +6,7 @@
 \usage{
 vl_locate(
   loc,
-  verbose = F,
+  verbose = FALSE,
   costing = "auto",
   costing_options = list(),
   val.server = "https://valhalla1.openstreetmap.de/"

@@ -56,7 +56,7 @@ vl_isochrone <- function(
   # Handle input point(s)
   loc <- input_route(x = center, single = TRUE, id = "center")
   oprj <- loc$oprj
-  locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
+  locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
   # Handle the times and distances arguments
   if (!missing(times) && !missing(distances)) {

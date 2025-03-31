@@ -103,7 +103,7 @@ vl_route <- function(src, dst, loc, costing="auto", costing_options=list(), val.
     oprj <- loc$oprj
     id1 <- loc$id1
     id2 <- loc$id2
-    locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
+    locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
   }
 
   # Build the JSON argument of the request

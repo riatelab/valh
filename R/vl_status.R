@@ -47,7 +47,7 @@ vl_status <- function(val.server = 'https://valhalla1.openstreetmap.de/',
 
   if (!is.null(res$bbox)) {
     res$bbox <- sf::st_read(
-      jsonlite::toJSON(res$bbox, auto_unbox = T),
+      jsonlite::toJSON(res$bbox, auto_unbox = TRUE),
       quiet = TRUE
     )
   }

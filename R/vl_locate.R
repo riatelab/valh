@@ -50,11 +50,11 @@
 #' on_road_3 <- vl_locate(loc = locsf2)
 #' }
 #' @export
-vl_locate <- function(loc, verbose = F, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
+vl_locate <- function(loc, verbose = FALSE, costing="auto", costing_options=list(), val.server='https://valhalla1.openstreetmap.de/') {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
-  locs <- lapply(1:length(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
+  locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
   # Build the JSON argument of the request
   json <- list(
@@ -101,7 +101,7 @@ vl_locate <- function(loc, verbose = F, costing="auto", costing_options=list(), 
   } else {
     # If there is more than one input point, return a list of sf objects,
     # one for each input point
-    li <- lapply(1:length(res$edges), function(i) {
+    li <- lapply(seq_along(res$edges), function(i) {
       t <- sf::st_as_sf(
         as.data.frame(res$edges[[i]]),
         coords = c("correlated_lon", "correlated_lat"),

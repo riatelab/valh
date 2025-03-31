@@ -112,7 +112,7 @@ vl_optimized_route <- function(
   )
 
   t <- do.call(rbind, lapply(
-    1:length(res$trip$legs$shape),
+    seq_along(res$trip$legs$shape),
     function (ix) {
       coords <- googlePolylines::decode(res$trip$legs$shape[ix])[[1]] / 10
       s <- res$trip$locations[ix,]$original_index + 1

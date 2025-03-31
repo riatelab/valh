@@ -91,8 +91,8 @@ vl_matrix <- function(src, dst, loc,
     src_r <- input_table(x = src, id = "src")
     dst_r <- input_table(x = dst, id = "dst")
   }
-  sources <- lapply(1:nrow(src_r), function(i) list(lon = src_r$lon[i], lat = src_r$lat[i]))
-  targets <- lapply(1:nrow(dst_r), function(i) list(lon = dst_r$lon[i], lat = dst_r$lat[i]))
+  sources <- lapply(seq_along(src_r$lon), function(i) list(lon = src_r$lon[i], lat = src_r$lat[i]))
+  targets <- lapply(seq_along(dst_r$lon), function(i) list(lon = dst_r$lon[i], lat = dst_r$lat[i]))
 
   # Build the JSON argument of the request
   json <- list(
