@@ -75,7 +75,7 @@ vl_optimized_route <- function(
     costing = costing,
     locations = lapply(1:n_pts, function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
   )
-  if (is.list(costing_options) & length(costing_options) > 0) {
+  if (is.list(costing_options) && length(costing_options) > 0) {
     json$costing_options <- list()
     json$costing_options[[costing]] <- costing_options
   }
