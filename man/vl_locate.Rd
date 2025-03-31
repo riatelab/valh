@@ -9,7 +9,7 @@ vl_locate(
   verbose = FALSE,
   costing = "auto",
   costing_options = list(),
-  val.server = "https://valhalla1.openstreetmap.de/"
+  val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
 \arguments{
@@ -32,7 +32,7 @@ vl_locate(
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 
-\item{val.server}{the URL of the Valhalla server. Default is the demo server
+\item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
@@ -59,7 +59,8 @@ on_road_1 <- vl_locate(loc = loc)
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 
 # Ask for one point
 locsf1 <- apotheke.sf[1, ]

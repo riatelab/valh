@@ -17,7 +17,7 @@
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
 #' Default is an empty list.\cr
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @returns If there is only one input point, return a single sf object
 #' containing the nearest point(s) on the road network.
@@ -51,7 +51,7 @@
 #' on_road_3 <- vl_locate(loc = locsf2)
 #' }
 #' @export
-vl_locate <- function(loc, verbose = FALSE, costing = "auto", costing_options = list(), val.server = "https://valhalla1.openstreetmap.de/") {
+vl_locate <- function(loc, verbose = FALSE, costing = "auto", costing_options = list(), val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
@@ -69,7 +69,7 @@ vl_locate <- function(loc, verbose = FALSE, costing = "auto", costing_options = 
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), "locate?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val_server), "locate?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

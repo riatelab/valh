@@ -48,7 +48,7 @@
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
 #' Default is an empty list.\cr
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @return
 #' The output of this function is an sf LINESTRING of the shortest route.\cr
@@ -85,7 +85,7 @@
 #' )
 #' }
 #' @export
-vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), val.server = "https://valhalla1.openstreetmap.de/") {
+vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (missing(loc)) {
     # From src to dst
@@ -118,7 +118,7 @@ vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), 
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), "route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val_server), "route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

@@ -10,7 +10,7 @@ vl_matrix(
   loc,
   costing = "auto",
   costing_options = list(),
-  val.server = "https://valhalla1.openstreetmap.de/"
+  val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
 \arguments{
@@ -48,7 +48,7 @@ If relevant, row names are used as identifiers.}
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 
-\item{val.server}{the URL of the Valhalla server. Default is the demo server
+\item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
@@ -91,7 +91,8 @@ distA2$durations[1:5, 1:5]
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 distA3 <- vl_matrix(loc = apotheke.sf[1:10, ])
 # First 5 rows and columns
 distA3$durations[1:5, 1:5]

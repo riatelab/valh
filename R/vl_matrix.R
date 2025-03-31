@@ -34,7 +34,7 @@
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
 #' Default is an empty list.\cr
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #'
 #' @return
@@ -83,7 +83,7 @@
 #' @export
 vl_matrix <- function(src, dst, loc,
                       costing = "auto", costing_options = list(),
-                      val.server = "https://valhalla1.openstreetmap.de/") {
+                      val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (!missing(loc)) {
     dst_r <- src_r <- input_table(x = loc, id = "loc")
@@ -108,7 +108,7 @@ vl_matrix <- function(src, dst, loc,
 
   # Construct the URL
   url <- paste0(
-    base_url(val.server), "sources_to_targets?json=",
+    base_url(val_server), "sources_to_targets?json=",
     jsonlite::toJSON(json, auto_unbox = TRUE)
   )
 

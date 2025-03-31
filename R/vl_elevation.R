@@ -15,7 +15,7 @@
 #' }
 #' @param sampling_dist the distance between each point to sample the elevation
 #' (in meters). Default is 'NA' (no sampling).
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @returns An sf POINT object is returned with the following fields: 'distance'
 #' (the distance from the first points), 'height' (the sampled height on the DEM)
@@ -64,7 +64,7 @@
 #' plot(as.matrix(st_drop_geometry(elev4)), type = "l")
 #' }
 #' @export
-vl_elevation <- function(loc, sampling_dist = NA, val.server = "https://valhalla1.openstreetmap.de/") {
+vl_elevation <- function(loc, sampling_dist = NA, val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_locate(x = loc, id = "loc")
   oprj <- loc$oprj
@@ -82,7 +82,7 @@ vl_elevation <- function(loc, sampling_dist = NA, val.server = "https://valhalla
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), "height?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val_server), "height?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

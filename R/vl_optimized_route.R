@@ -20,7 +20,7 @@
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
 #' Default is an empty list.\cr
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @return a list of two elements: \itemize{
 #'   \item summary: a list whose elements are a summary of the trip (duration,
@@ -61,7 +61,7 @@ vl_optimized_route <- function(
     end_at_start = FALSE,
     costing = "auto",
     costing_options = list(),
-    val.server = "https://valhalla1.openstreetmap.de/") {
+    val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input points
   if (end_at_start) {
     loc <- rbind(loc, loc[1, ])
@@ -81,7 +81,7 @@ vl_optimized_route <- function(
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), "optimized_route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val_server), "optimized_route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

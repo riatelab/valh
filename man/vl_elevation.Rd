@@ -7,7 +7,7 @@
 vl_elevation(
   loc,
   sampling_dist = NA,
-  val.server = "https://valhalla1.openstreetmap.de/"
+  val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ vl_elevation(
 \item{sampling_dist}{the distance between each point to sample the elevation
 (in meters). Default is 'NA' (no sampling).}
 
-\item{val.server}{the URL of the Valhalla server. Default is the demo server
+\item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
@@ -50,7 +50,8 @@ elev1 <- vl_elevation(loc = pts)
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 # The first 5 points
 pts2 <- apotheke.sf[1:5, ]
 # Ask for the elevation at these points
@@ -59,13 +60,14 @@ elev2 <- vl_elevation(loc = pts2)
 # sampling every 100 meters
 elev3 <- vl_elevation(loc = apotheke.sf[1:2, ], sampling_dist = 100)
 # Plot the corresponding elevation profile
-plot(as.matrix(st_drop_geometry(elev3)), type = 'l')
+plot(as.matrix(st_drop_geometry(elev3)), type = "l")
 
 # Input is a route (sf LINESTRING) from vl_route
 # Compute the route between the first and the second points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 src <- apotheke.sf[1, ]
 dst <- apotheke.sf[2, ]
 route <- vl_route(src = src, dst = dst)
@@ -76,6 +78,6 @@ pts_route <- sf::st_cast(route, "POINT")
 elev4 <- vl_elevation(loc = pts_route)
 
 # Plot the elevation profile
-plot(as.matrix(st_drop_geometry(elev4)), type = 'l')
+plot(as.matrix(st_drop_geometry(elev4)), type = "l")
 }
 }

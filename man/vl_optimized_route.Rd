@@ -9,7 +9,7 @@ vl_optimized_route(
   end_at_start = FALSE,
   costing = "auto",
   costing_options = list(),
-  val.server = "https://valhalla1.openstreetmap.de/"
+  val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
 \arguments{
@@ -34,7 +34,7 @@ first point (making the trip a loop). Default is FALSE.}
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 
-\item{val.server}{the URL of the Valhalla server. Default is the demo server
+\item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
@@ -66,7 +66,8 @@ trip1b <- vl_optimized_route(loc = pts1, end_at_start = TRUE, costing = "bicycle
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 pts2 <- apotheke.sf[1:6, ]
 # Compute the optimized route between the first 6 points
 # (starting point, 4 waypoints and final destination)

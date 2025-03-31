@@ -20,7 +20,7 @@
 #' "auto".\cr
 #' @param costing_options a list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
-#' @param val.server the URL of the Valhalla server. Default is the demo server
+#' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @returns An sf MULTIPOLYGON object is returned with the following fields:
 #' 'metric' (the metric used, either 'time' or 'distance)
@@ -52,7 +52,7 @@ vl_isochrone <- function(
     distances,
     costing = "auto",
     costing_options = list(),
-    val.server = "https://valhalla1.openstreetmap.de/") {
+    val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_route(x = center, single = TRUE, id = "center")
   oprj <- loc$oprj
@@ -82,7 +82,7 @@ vl_isochrone <- function(
   }
 
   # Construct the URL
-  url <- paste0(base_url(val.server), "isochrone?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(val_server), "isochrone?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
   e <- try(

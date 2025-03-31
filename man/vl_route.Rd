@@ -10,7 +10,7 @@ vl_route(
   loc,
   costing = "auto",
   costing_options = list(),
-  val.server = "https://valhalla1.openstreetmap.de/"
+  val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
 \arguments{
@@ -58,7 +58,7 @@ If relevant, row names are used as identifiers.\cr}
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 
-\item{val.server}{the URL of the Valhalla server. Default is the demo server
+\item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}
 }
 \value{
@@ -91,7 +91,8 @@ route1 <- vl_route(src = src, dst = dst, costing = "bicycle")
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 srcsf <- apotheke.sf[1, ]
 dstsf <- apotheke.sf[2, ]
 # Route between the two points, using bicycle costing model and a custom
@@ -100,7 +101,7 @@ route2 <- vl_route(
   src = srcsf,
   dst = dstsf,
   costing = "bicycle",
-  costing_options = list(cycling_speed=19)
+  costing_options = list(cycling_speed = 19)
 )
 }
 }
