@@ -270,11 +270,6 @@ test_http_error <- function(r) {
 input_table <- function(x, id) {
   if (inherits(x = x, what = c("sfc", "sf"))) {
     lx <- length(sf::st_geometry(x))
-    if (lx < 1) {
-      stop(paste0('"', id, '" should have at least 1 row or element.'),
-        call. = FALSE
-      )
-    }
     type <- sf::st_geometry_type(x, by_geometry = TRUE)
     type <- as.character(unique(type))
     if (length(type) > 1 || type != "POINT") {
@@ -298,11 +293,6 @@ input_table <- function(x, id) {
   }
   if (inherits(x = x, what = c("data.frame", "matrix"))) {
     lx <- nrow(x)
-    if (lx < 1) {
-      stop(paste0('"', id, '" should have at least 1 row or element.'),
-        call. = FALSE
-      )
-    }
     if (ncol(x) == 2 && is.numeric(x[, 1, drop = TRUE]) && is.numeric(x[, 2, drop = TRUE])) {
       rn <- row.names(x)
       if (is.null(rn)) {
@@ -331,11 +321,4 @@ input_table <- function(x, id) {
       call. = FALSE
     )
   }
-}
-
-encode_coords <- function(x) {
-  x$lat <- clean_coord(as.numeric(as.character(x$lat)))
-  x$lon <- clean_coord(as.numeric(as.character(x$lon)))
-  result <- paste("{", '"lat":', x$lat, ',"lon":', x$lon, "}", collapse = ",", sep = "")
-  return(result)
 }
