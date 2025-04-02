@@ -171,8 +171,27 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
   }
 }
 
-input_locate <- function(x, id, all.ids = FALSE) {
+input_locate <- function(x) {
   oprj <- NA
+  if (is.vector(x)) {
+    if (length(x) == 2 && is.numeric(x)) {
+      if (x[1] > 180 || x[1] < -180 || x[2] > 90 || x[2] < -90) {
+        stop(
+          paste0(
+            "longitude is bounded by the interval [-180, 180], ",
+            "latitude is bounded by the interval [-90, 90]"
+          ),
+          call. = FALSE
+        )
+      }
+      lon <- clean_coord(x[1])
+      lat <- clean_coord(x[2])
+      return(list(lon = lon, lat = lat, oprj = oprj))
+    } else {
+      stop('"loc" should be a numeric vector of length 2, i.e., c(lon, lat).',
+           call. = FALSE)
+    }
+  }
   if (inherits(x = x, what = c("sfc", "sf"))) {
     oprj <- sf::st_crs(x)
     lx <- length(sf::st_geometry(x))
@@ -181,43 +200,18 @@ input_locate <- function(x, id, all.ids = FALSE) {
     if (length(type) > 1 || type != "POINT") {
       stop('"loc" geometry should be of type POINT', call. = FALSE)
     }
-    if (inherits(x, "sfc")) {
-      id1 <- "src"
-      id2 <- "dst"
-      if (all.ids) {
-        rn <- 1:lx
-      }
-    } else {
-      rn <- row.names(x)
-      id1 <- rn[1]
-      id2 <- rn[lx]
-    }
     x <- sf::st_transform(x = x, crs = 4326)
     coords <- sf::st_coordinates(x)
     lon <- clean_coord(coords[, 1])
     lat <- clean_coord(coords[, 2])
-    if (!all.ids) {
-      return(list(id1 = id1, id2 = id2, lon = lon, lat = lat, oprj = oprj))
-    } else {
-      return(list(id = rn, lon = lon, lat = lat, oprj = oprj))
-    }
+    return(list(lon = lon, lat = lat, oprj = oprj))
   }
   if (inherits(x = x, what = c("data.frame", "matrix"))) {
     lx <- nrow(x)
     if (ncol(x) == 2 && is.numeric(x[, 1, drop = TRUE]) && is.numeric(x[, 2, drop = TRUE])) {
       lon <- clean_coord(x[, 1, drop = TRUE])
       lat <- clean_coord(x[, 2, drop = TRUE])
-      rn <- row.names(x)
-      if (is.null(rn)) {
-        rn <- 1:lx
-      }
-      id1 <- rn[1]
-      id2 <- rn[lx]
-      if (!all.ids) {
-        return(list(id1 = id1, id2 = id2, lon = lon, lat = lat, oprj = oprj))
-      } else {
-        return(list(id = rn, lon = lon, lat = lat, oprj = oprj))
-      }
+      return(list(lon = lon, lat = lat, oprj = oprj))
     } else {
       stop(paste0('"loc" should contain coordinates.'),
         call. = FALSE
@@ -226,7 +220,7 @@ input_locate <- function(x, id, all.ids = FALSE) {
   } else {
     stop(
       paste0(
-        '"loc" should be ',
+        '"loc" should be a vector of coordinates, ',
         "a data.frame or a matrix ",
         "of coordinates, an sfc POINT object or an ",
         "sf POINT object."

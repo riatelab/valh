@@ -66,7 +66,7 @@
 #' @export
 vl_elevation <- function(loc, sampling_dist = NA, val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
-  loc <- input_locate(x = loc, id = "loc")
+  loc <- input_locate(x = loc)
   oprj <- loc$oprj
   locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
