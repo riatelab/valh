@@ -14,7 +14,7 @@
 #'   \item an sf object of type POINT.
 #' }
 #' @param sampling_dist the distance between each point to sample the elevation
-#' (in meters). Default is 'NA' (no sampling).
+#' (in meters). Default is no sampling.
 #' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @returns An sf POINT object is returned with the following fields: 'distance'
@@ -64,7 +64,7 @@
 #' plot(as.matrix(st_drop_geometry(elev4)), type = "l")
 #' }
 #' @export
-vl_elevation <- function(loc, sampling_dist = NA, val_server = "https://valhalla1.openstreetmap.de/") {
+vl_elevation <- function(loc, sampling_dist, val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
   loc <- input_locate(x = loc)
   oprj <- loc$oprj
@@ -77,7 +77,7 @@ vl_elevation <- function(loc, sampling_dist = NA, val_server = "https://valhalla
   )
 
   # Add sampling distance if provided
-  if (!is.na(sampling_dist)) {
+  if (!missing(sampling_dist)) {
     json$resample_distance <- sampling_dist
   }
 
