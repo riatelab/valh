@@ -61,7 +61,8 @@ iso1 <- vl_isochrone(center = pt1, distances = c(3, 6, 9, 12), costing = "auto")
 # Inputs are sf points
 library(sf)
 apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                       quiet = TRUE)
+  quiet = TRUE
+)
 # Extract the first point and compute isochrones at 15, 30, 45 and 60 minutes
 # using the "bicycle" costing model
 pt2 <- apotheke.sf[1, ]
