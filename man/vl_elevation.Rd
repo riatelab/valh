@@ -6,7 +6,7 @@
 \usage{
 vl_elevation(
   loc,
-  sampling_dist = NA,
+  sampling_dist,
   val_server = "https://valhalla1.openstreetmap.de/"
 )
 }
@@ -21,7 +21,7 @@ vl_elevation(
 }}
 
 \item{sampling_dist}{the distance between each point to sample the elevation
-(in meters). Default is 'NA' (no sampling).}
+(in meters). Default is no sampling.}
 
 \item{val_server}{the URL of the Valhalla server. Default is the demo server
 (https://valhalla1.openstreetmap.de/).}

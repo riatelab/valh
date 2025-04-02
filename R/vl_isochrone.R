@@ -4,8 +4,8 @@
 #' Build and send a Valhalla API query to get isochrones from a point.
 #' Note that you must provide either 'times' or 'distances' to compute the isochrones
 #' at given times or distances from the center point.
-#' @param center one point from which to compute isochrones.
-#' \code{center} can be: \itemize{
+#' @param loc one point from which to compute isochrones.
+#' \code{loc} can be: \itemize{
 #'   \item a vector of coordinates (longitude and latitude, WGS 84),
 #'   \item a data.frame of longitudes and latitudes (WGS 84),
 #'   \item a matrix of longitudes and latitudes (WGS 84),

@@ -5,7 +5,7 @@
 \title{Get Isochrones from a Point}
 \usage{
 vl_isochrone(
-  center,
+  loc,
   times,
   distances,
   costing = "auto",
@@ -14,8 +14,8 @@ vl_isochrone(
 )
 }
 \arguments{
-\item{center}{one point from which to compute isochrones.
-\code{center} can be: \itemize{
+\item{loc}{one point from which to compute isochrones.
+\code{loc} can be: \itemize{
   \item a vector of coordinates (longitude and latitude, WGS 84),
   \item a data.frame of longitudes and latitudes (WGS 84),
   \item a matrix of longitudes and latitudes (WGS 84),
@@ -40,7 +40,7 @@ isochrones.}
 }
 \value{
 An sf MULTIPOLYGON object is returned with the following fields:
-'metric' (the metric used, either 'time' or 'distance)
+'metric' (the metric used, either 'time' or 'distance')
 and 'contour' (the value of the metric).
 }
 \description{
@@ -56,7 +56,7 @@ apotheke.df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
 # Extract the first point and compute isochrones at 3, 6, 9 and 12 kilometers,
 # using the "auto" costing model
 pt1 <- apotheke.df[1, c("lon", "lat")]
-iso1 <- vl_isochrone(center = pt1, distances = c(3, 6, 9, 12), costing = "auto")
+iso1 <- vl_isochrone(loc = pt1, distances = c(3, 6, 9, 12), costing = "auto")
 
 # Inputs are sf points
 library(sf)
@@ -66,6 +66,6 @@ apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
 # Extract the first point and compute isochrones at 15, 30, 45 and 60 minutes
 # using the "bicycle" costing model
 pt2 <- apotheke.sf[1, ]
-iso2 <- vl_isochrone(center = pt2, times = c(15, 30, 45, 60), costing = "bicycle")
+iso2 <- vl_isochrone(loc = pt2, times = c(15, 30, 45, 60), costing = "bicycle")
 }
 }
