@@ -12,9 +12,60 @@ base_url <- function(url) {
 
 clean_coord <- function(x) {
   format(round(as.numeric(x), 5),
-    scientific = FALSE, justify = "none",
-    trim = TRUE, nsmall = 5, digits = 5
+         scientific = FALSE, justify = "none",
+         trim = TRUE, nsmall = 5, digits = 5
   )
+}
+
+test_http_error <- function(r) {
+  if (r$status_code >= 400) {
+    if (is.na(r$type)) {
+      stop(
+        sprintf(
+          "Valhalla API request failed [%s]\n%s",
+          r$status_code, rawToChar(r$content)
+        ),
+        call. = FALSE
+      )
+    }
+    if (substr(r$type, 1, 16) != "application/json") {
+      stop(
+        sprintf(
+          "Valhalla API request failed [%s]",
+          r$status_code
+        ),
+        call. = FALSE
+      )
+    } else {
+      rep <- jsonlite::parse_json(rawToChar(r$content))
+      stop(
+        sprintf(
+          "Valhalla API request returned an error [%s]\n%s\n%s",
+          r$status_code,
+          rep$error_code,
+          rep$error
+        ),
+        call. = FALSE
+      )
+    }
+  }
+  return(NULL)
+}
+
+get_results <- function(url){
+  req_handle <- curl::new_handle(verbose = FALSE)
+  curl::handle_setopt(req_handle, useragent = "valh_R_package")
+  e <- try(
+    {
+      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
+    },
+    silent = TRUE
+  )
+  if (inherits(e, "try-error")) {
+    stop(e, call. = FALSE)
+  }
+  test_http_error(r)
+  return(r)
 }
 
 input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
@@ -59,7 +110,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
       }
       if (sf::st_geometry_type(x, by_geometry = FALSE) != "POINT") {
         stop(paste0('"', id, '" geometry should be of type POINT.'),
-          call. = FALSE
+             call. = FALSE
         )
       }
       x <- sf::st_transform(x = x, crs = 4326)
@@ -84,7 +135,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
         return(list(id = idx, lon = lon, lat = lat, oprj = oprj))
       } else {
         stop(paste0('"', id, '" should contain coordinates.'),
-          call. = FALSE
+             call. = FALSE
         )
       }
     } else {
@@ -104,7 +155,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
       lx <- length(sf::st_geometry(x))
       if (lx < 2) {
         stop('"loc" should have at least 2 rows or elements.',
-          call. = FALSE
+             call. = FALSE
         )
       }
       type <- sf::st_geometry_type(x, by_geometry = FALSE)
@@ -154,7 +205,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
         }
       } else {
         stop(paste0('"loc" should contain coordinates.'),
-          call. = FALSE
+             call. = FALSE
         )
       }
     } else {
@@ -214,7 +265,7 @@ input_locate <- function(x) {
       return(list(lon = lon, lat = lat, oprj = oprj))
     } else {
       stop(paste0('"loc" should contain coordinates.'),
-        call. = FALSE
+           call. = FALSE
       )
     }
   } else {
@@ -230,43 +281,6 @@ input_locate <- function(x) {
   }
 }
 
-test_http_error <- function(r) {
-  if (r$status_code >= 400) {
-    if (is.na(r$type)) {
-      stop(
-        sprintf(
-          "Valhalla API request failed [%s]\n%s",
-          r$status_code, rawToChar(r$content)
-        ),
-        call. = FALSE
-      )
-    }
-    if (substr(r$type, 1, 16) != "application/json") {
-      stop(
-        sprintf(
-          "Valhalla API request failed [%s]",
-          r$status_code
-        ),
-        call. = FALSE
-      )
-    } else {
-      rep <- jsonlite::parse_json(rawToChar(r$content))
-      print(rep)
-      print("_____________")
-      stop(
-        sprintf(
-          "Valhalla API request returned an error [%s]\n%s\n%s",
-          r$status_code,
-          rep$error_code,
-          rep$error
-        ),
-        call. = FALSE
-      )
-    }
-  }
-  return(NULL)
-}
-
 input_table <- function(x, id) {
   if (inherits(x = x, what = c("sfc", "sf"))) {
     lx <- length(sf::st_geometry(x))
@@ -274,7 +288,7 @@ input_table <- function(x, id) {
     type <- as.character(unique(type))
     if (length(type) > 1 || type != "POINT") {
       stop(paste0('"', id, '" geometry should be of type POINT.'),
-        call. = FALSE
+           call. = FALSE
       )
     }
     if (inherits(x, "sfc")) {
@@ -307,7 +321,7 @@ input_table <- function(x, id) {
       return(x)
     } else {
       stop(paste0('"', id, '" should contain coordinates.'),
-        call. = FALSE
+           call. = FALSE
       )
     }
   } else {

@@ -84,18 +84,7 @@ vl_optimized_route <- function(
   url <- paste0(base_url(val_server), "optimized_route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
 
   # Send the request and handle possible errors
-  e <- try(
-    {
-      req_handle <- curl::new_handle(verbose = FALSE)
-      curl::handle_setopt(req_handle, useragent = "valh_R_package")
-      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-    },
-    silent = TRUE
-  )
-  if (inherits(e, "try-error")) {
-    stop(e, call. = FALSE)
-  }
-  test_http_error(r)
+  r <- get_results(url)
 
   # Parse the response
   res <- jsonlite::fromJSON(rawToChar(r$content))

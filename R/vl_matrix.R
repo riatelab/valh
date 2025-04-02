@@ -112,19 +112,8 @@ vl_matrix <- function(src, dst, loc,
     jsonlite::toJSON(json, auto_unbox = TRUE)
   )
 
-  e <- try(
-    {
-      req_handle <- curl::new_handle(verbose = FALSE)
-      curl::handle_setopt(req_handle, useragent = "valh_R_package")
-      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-    },
-    silent = TRUE
-  )
-
-  if (inherits(e, "try-error")) {
-    stop(e, call. = FALSE)
-  }
-  test_http_error(r)
+  # Send the request and handle possible errors
+  r <- get_results(url)
 
   # Parse the response
   res <- jsonlite::fromJSON(rawToChar(r$content))
