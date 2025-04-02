@@ -23,7 +23,7 @@
 #' @param val_server the URL of the Valhalla server. Default is the demo server
 #' (https://valhalla1.openstreetmap.de/).
 #' @returns An sf MULTIPOLYGON object is returned with the following fields:
-#' 'metric' (the metric used, either 'time' or 'distance)
+#' 'metric' (the metric used, either 'time' or 'distance')
 #' and 'contour' (the value of the metric).
 #' @examples
 #' \dontrun{
@@ -33,7 +33,7 @@
 #' # Extract the first point and compute isochrones at 3, 6, 9 and 12 kilometers,
 #' # using the "auto" costing model
 #' pt1 <- apotheke.df[1, c("lon", "lat")]
-#' iso1 <- vl_isochrone(center = pt1, distances = c(3, 6, 9, 12), costing = "auto")
+#' iso1 <- vl_isochrone(loc = pt1, distances = c(3, 6, 9, 12), costing = "auto")
 #'
 #' # Inputs are sf points
 #' library(sf)
@@ -43,30 +43,30 @@
 #' # Extract the first point and compute isochrones at 15, 30, 45 and 60 minutes
 #' # using the "bicycle" costing model
 #' pt2 <- apotheke.sf[1, ]
-#' iso2 <- vl_isochrone(center = pt2, times = c(15, 30, 45, 60), costing = "bicycle")
+#' iso2 <- vl_isochrone(loc = pt2, times = c(15, 30, 45, 60), costing = "bicycle")
 #' }
 #' @export
 vl_isochrone <- function(
-    center,
+    loc,
     times,
     distances,
     costing = "auto",
     costing_options = list(),
     val_server = "https://valhalla1.openstreetmap.de/") {
   # Handle input point(s)
-  loc <- input_route(x = center, single = TRUE, id = "center")
+  loc <- input_route(x = loc, single = TRUE, id = "center")
   oprj <- loc$oprj
   locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
   # Handle the times and distances arguments
   if (!missing(times) && !missing(distances)) {
-    stop("You must provide either 'times' or 'distances', not both")
+    stop("You must provide either 'times' or 'distances', not both.", call. = FALSE)
   } else if (!missing(times)) {
     contours <- lapply(times, function(x) list(time = x))
   } else if (!missing(distances)) {
     contours <- lapply(distances, function(x) list(distance = x))
   } else {
-    stop("You must provide either 'times' or 'distances'")
+    stop("You must provide either 'times' or 'distances'.", call. = FALSE)
   }
 
   # Build the JSON argument of the request
