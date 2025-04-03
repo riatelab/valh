@@ -123,22 +123,11 @@ vl_route <- function(src, dst, loc,
   )
 
   # Send the request and handle possible errors
-  e <- try(
-    {
-      req_handle <- curl::new_handle(verbose = FALSE)
-      curl::handle_setopt(req_handle, useragent = "valh_R_package")
-      r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)
-    },
-    silent = TRUE
-  )
-  if (inherits(e, "try-error")) {
-    stop(e, call. = FALSE)
-  }
-  test_http_error(r)
+  r <- get_results(url)
 
   # Parse the response to a spatial data frame
   res <- jsonlite::fromJSON(rawToChar(r$content))
-  gdf <- googlePolylines::decode(res$trip$legs$shape)[[1]] / 10
+  gdf <- do.call(rbind, lapply(res$trip$legs$shape, function(x) googlePolylines::decode(x)[[1]] / 10))
 
   rosf <- sf::st_sf(
     src = id1,
@@ -154,6 +143,5 @@ vl_route <- function(src, dst, loc,
   if (!is.na(oprj)) {
     rosf <- sf::st_transform(rosf, oprj)
   }
-
   return(rosf)
 }
