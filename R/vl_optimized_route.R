@@ -1,7 +1,8 @@
 #' @name vl_optimized_route
 #' @title Get the Optimized Route Between Multiple Points
-#' @description Build and send a Valhalla API query to get the optimized route
-#' (and so a solution to the Traveling Salesman Problem) between multiple points.
+#' @description
+#' Build and send a Valhalla API query to get the optimized route
+#' (and so a solution to the Traveling Salesman Problem) between multiple points.\cr
 #' This function interfaces with the \emph{optimized_route} Valhalla service.
 #' @param loc starting point and waypoints to reach along the
 #' route. \code{loc} can be: \itemize{
@@ -12,14 +13,12 @@
 #' }
 #' The first row or element is the starting point.\cr
 #' Row names, if relevant, or element indexes are used as identifiers.
-#' @param end_at_start a logical indicating whether the route should end at the
-#' first point (making the trip a loop). Default is FALSE.
-#' @param costing the costing model to use for the route. Default is
-#' "auto".\cr
-#' @param costing_options a list of options to use with the costing model
+#' @param end_at_start logical indicating whether the route should end at the
+#' first point (making the trip a loop).
+#' @param costing costing model to use.
+#' @param costing_options list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
-#' Default is an empty list.\cr
 #' @param server URL of the Valhalla server.
 #' @return a list of two elements: \itemize{
 #'   \item summary: a list whose elements are a summary of the trip (duration,

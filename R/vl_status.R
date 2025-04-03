@@ -1,9 +1,7 @@
 #' @title Get Valhalla Service Status
 #' @description
-#' Use this function to return information on the Valhalla server (version etc.).
-#' This function interfaces with the \emph{Status} Valhalla
-#' service.
-#'
+#' Use this function to return information on the Valhalla server (version etc.).\cr
+#' This function interfaces with the \emph{Status} Valhalla service.
 #' @param server URL of the Valhalla server.
 #' @param verbose if TRUE and if the service has it enabled,
 #' it will return additional information about the loaded tileset.

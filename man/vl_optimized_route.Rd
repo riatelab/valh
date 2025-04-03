@@ -23,16 +23,14 @@ route. \code{loc} can be: \itemize{
 The first row or element is the starting point.\cr
 Row names, if relevant, or element indexes are used as identifiers.}
 
-\item{end_at_start}{a logical indicating whether the route should end at the
-first point (making the trip a loop). Default is FALSE.}
+\item{end_at_start}{logical indicating whether the route should end at the
+first point (making the trip a loop).}
 
-\item{costing}{the costing model to use for the route. Default is
-"auto".\cr}
+\item{costing}{costing model to use.}
 
-\item{costing_options}{a list of options to use with the costing model
+\item{costing_options}{list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
-for more details about the options available for each costing model).
-Default is an empty list.\cr}
+for more details about the options available for each costing model).}
 
 \item{server}{URL of the Valhalla server.}
 }
@@ -45,7 +43,7 @@ a list of two elements: \itemize{
 }
 \description{
 Build and send a Valhalla API query to get the optimized route
-(and so a solution to the Traveling Salesman Problem) between multiple points.
+(and so a solution to the Traveling Salesman Problem) between multiple points.\cr
 This function interfaces with the \emph{optimized_route} Valhalla service.
 }
 \examples{

@@ -1,8 +1,10 @@
 #' @name vl_matrix
 #' @title Get Travel Time Matrices Between Points
-#' @description Build and send Valhalla API queries to get travel time matrices
-#' between points. This function interfaces the \emph{matrix} Valhalla service.\cr
-#' Use \code{src} and \code{dst} to set different origins and destinations.\cr
+#' @description
+#' Build and send Valhalla API queries to get travel time matrices
+#' between points.\cr
+#' This function interfaces the \emph{matrix} Valhalla service.\cr
+#' Use \code{src} and \code{dst} to set different origins and destinations.
 #' Use \code{loc} to compute travel times or travel distances between all
 #' points.
 #' @param src origin points.
@@ -28,12 +30,10 @@
 #'   \item an sf object of type POINT.
 #' }
 #' If relevant, row names are used as identifiers.
-#' @param costing the costing model to use for the route. Default is
-#' "auto".\cr
-#' @param costing_options a list of options to use with the costing model
+#' @param costing costing model to use.
+#' @param costing_options list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
-#' Default is an empty list.\cr
 #' @param server URL of the Valhalla server.
 #' @return
 #' The output of this function is a list composed of one or two matrices

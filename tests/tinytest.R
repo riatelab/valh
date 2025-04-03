@@ -10,6 +10,8 @@ if (requireNamespace("tinytest", quietly = TRUE)) {
   x_sfc_l <- st_cast(x_sfc, "LINESTRING")
   x_m <- as.matrix(x_df)
   row.names(x_sf) <- paste0("sf", row.names(x_sf))
-  wait <- function() {Sys.sleep(1)}
+  wait <- function() {
+    Sys.sleep(1)
+  }
   tinytest::test_package(pkgname = "valh")
 }

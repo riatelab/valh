@@ -2,12 +2,12 @@
 % Please edit documentation in R/vl_elevation.R
 \name{vl_elevation}
 \alias{vl_elevation}
-\title{Get Elevation Along a Route}
+\title{Get elevation along a route}
 \usage{
 vl_elevation(loc, sampling_dist, server = getOption("valh.server"))
 }
 \arguments{
-\item{loc}{one (or multiples) point(s) to snap to the street network.
+\item{loc}{one (or multiples) point(s) to get elevations.
 \code{loc} can be: \itemize{
   \item a vector of coordinates (longitude and latitude, WGS 84),
   \item a data.frame of longitudes and latitudes (WGS 84),
@@ -16,7 +16,7 @@ vl_elevation(loc, sampling_dist, server = getOption("valh.server"))
   \item an sf object of type POINT.
 }}
 
-\item{sampling_dist}{the distance between each point to sample the elevation
+\item{sampling_dist}{distance between each point to sample the elevation
 (in meters). Default is no sampling.}
 
 \item{server}{URL of the Valhalla server.}
@@ -28,7 +28,7 @@ and 'geometry' (the geometry of the sampled point).
 }
 \description{
 Build and send a Valhalla API query to get the elevation at a
-set of input locations.
+set of input locations.\cr
 This function interfaces with the \emph{height} service.\cr
 If \code{sampling_dist} is provided, the elevation is sampled at regular
 intervals along the input locations.

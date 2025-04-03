@@ -1,11 +1,10 @@
 #' @name vl_route
 #' @title Get the Shortest Path Between Two Points
 #' @description Build and send a Valhalla API query to get the travel geometry
-#' between two points. This function interfaces with the \emph{route} Valhalla
-#' service.\cr
+#' between two points.\cr
+#' This function interfaces with the \emph{route} Valhalla service.\cr
 #' Use \code{src} and \code{dst} to get the shortest direct route between
-#' two points.\cr
-#' Use \code{loc} to get the shortest route between two points using
+#' two points. Use \code{loc} to get the shortest route between two points using
 #' ordered waypoints.
 #'
 #' @param src starting point of the route.
@@ -42,12 +41,10 @@
 #' the order they are stored in \code{loc} and the last row or element is
 #' the destination.\cr
 #' If relevant, row names are used as identifiers.
-#' @param costing the costing model to use for the route. Default is
-#' "auto".
-#' @param costing_options a list of options to use with the costing model
+#' @param costing costing model to use.
+#' @param costing_options list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
-#' Default is an empty list.
 #' @param server URL of the Valhalla server.
 #' @return
 #' The output of this function is an sf LINESTRING of the shortest route.\cr

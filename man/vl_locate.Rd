@@ -2,7 +2,7 @@
 % Please edit documentation in R/vl_locate.R
 \name{vl_locate}
 \alias{vl_locate}
-\title{Get the Nearest Point on the Road Network}
+\title{Get the nearest point on the road network}
 \usage{
 vl_locate(
   loc,
@@ -22,15 +22,13 @@ vl_locate(
   \item an sf object of type POINT.
 }}
 
-\item{verbose}{a logical indicating whether to return additional information}
+\item{verbose}{logical indicating whether to return additional information.}
 
-\item{costing}{the costing model to use for the route. Default is
-"auto".\cr}
+\item{costing}{costing model to use.}
 
-\item{costing_options}{a list of options to use with the costing model
+\item{costing_options}{list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
-for more details about the options available for each costing model).
-Default is an empty list.\cr}
+for more details about the options available for each costing model).}
 
 \item{server}{URL of the Valhalla server.}
 }
@@ -41,8 +39,7 @@ If there is more than one input point, return a list of sf objects,
 one for each input point.
 }
 \description{
-This function interfaces with the \emph{nearest} Valhalla
-service.\cr
+This function interfaces with the \emph{nearest} Valhalla service.
 }
 \examples{
 \dontrun{

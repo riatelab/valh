@@ -40,13 +40,11 @@ If relevant, row names are used as identifiers.}
 }
 If relevant, row names are used as identifiers.}
 
-\item{costing}{the costing model to use for the route. Default is
-"auto".\cr}
+\item{costing}{costing model to use.}
 
-\item{costing_options}{a list of options to use with the costing model
+\item{costing_options}{list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
-for more details about the options available for each costing model).
-Default is an empty list.\cr}
+for more details about the options available for each costing model).}
 
 \item{server}{URL of the Valhalla server.}
 }
@@ -65,8 +63,9 @@ and 2 data.frames
 }
 \description{
 Build and send Valhalla API queries to get travel time matrices
-between points. This function interfaces the \emph{matrix} Valhalla service.\cr
-Use \code{src} and \code{dst} to set different origins and destinations.\cr
+between points.\cr
+This function interfaces the \emph{matrix} Valhalla service.\cr
+Use \code{src} and \code{dst} to set different origins and destinations.
 Use \code{loc} to compute travel times or travel distances between all
 points.
 }

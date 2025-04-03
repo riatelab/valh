@@ -1,7 +1,7 @@
 #' @name vl_locate
-#' @title Get the Nearest Point on the Road Network
-#' @description This function interfaces with the \emph{nearest} Valhalla
-#' service.\cr
+#' @title Get the nearest point on the road network
+#' @description
+#' This function interfaces with the \emph{nearest} Valhalla service.
 #' @param loc one (or multiples) point(s) to snap to the street network.
 #' \code{loc} can be: \itemize{
 #'   \item a vector of coordinates (longitude and latitude, WGS 84),
@@ -10,13 +10,11 @@
 #'   \item an sfc object of type POINT,
 #'   \item an sf object of type POINT.
 #' }
-#' @param verbose a logical indicating whether to return additional information
-#' @param costing the costing model to use for the route. Default is
-#' "auto".\cr
-#' @param costing_options a list of options to use with the costing model
+#' @param verbose logical indicating whether to return additional information.
+#' @param costing costing model to use.
+#' @param costing_options list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
-#' Default is an empty list.\cr
 #' @param server URL of the Valhalla server.
 #' @returns If there is only one input point, return a single sf object
 #' containing the nearest point(s) on the road network.

@@ -16,9 +16,8 @@ it will return additional information about the loaded tileset.}
 A list with information on the Valhalla service is returned.
 }
 \description{
-Use this function to return information on the Valhalla server (version etc.).
-This function interfaces with the \emph{Status} Valhalla
-service.
+Use this function to return information on the Valhalla server (version etc.).\cr
+This function interfaces with the \emph{Status} Valhalla service.
 }
 \examples{
 vl_status("https://valhalla1.openstreetmap.de/", verbose = FALSE)

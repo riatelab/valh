@@ -12,8 +12,8 @@ base_url <- function(url) {
 
 clean_coord <- function(x) {
   format(round(as.numeric(x), 5),
-         scientific = FALSE, justify = "none",
-         trim = TRUE, nsmall = 5, digits = 5
+    scientific = FALSE, justify = "none",
+    trim = TRUE, nsmall = 5, digits = 5
   )
 }
 
@@ -52,7 +52,7 @@ test_http_error <- function(r) {
   return(NULL)
 }
 
-get_results <- function(url){
+get_results <- function(url) {
   req_handle <- curl::new_handle(verbose = FALSE)
   curl::handle_setopt(req_handle, useragent = "valh_R_package")
   e <- try(
@@ -110,7 +110,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
       }
       if (sf::st_geometry_type(x, by_geometry = FALSE) != "POINT") {
         stop(paste0('"', id, '" geometry should be of type POINT.'),
-             call. = FALSE
+          call. = FALSE
         )
       }
       x <- sf::st_transform(x = x, crs = 4326)
@@ -135,7 +135,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
         return(list(id = idx, lon = lon, lat = lat, oprj = oprj))
       } else {
         stop(paste0('"', id, '" should contain coordinates.'),
-             call. = FALSE
+          call. = FALSE
         )
       }
     } else {
@@ -155,7 +155,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
       lx <- length(sf::st_geometry(x))
       if (lx < 2) {
         stop('"loc" should have at least 2 rows or elements.',
-             call. = FALSE
+          call. = FALSE
         )
       }
       type <- sf::st_geometry_type(x, by_geometry = FALSE)
@@ -205,7 +205,7 @@ input_route <- function(x, id, single = TRUE, all.ids = FALSE) {
         }
       } else {
         stop(paste0('"loc" should contain coordinates.'),
-             call. = FALSE
+          call. = FALSE
         )
       }
     } else {
@@ -240,7 +240,8 @@ input_locate <- function(x) {
       return(list(lon = lon, lat = lat, oprj = oprj))
     } else {
       stop('"loc" should be a numeric vector of length 2, i.e., c(lon, lat).',
-           call. = FALSE)
+        call. = FALSE
+      )
     }
   }
   if (inherits(x = x, what = c("sfc", "sf"))) {
@@ -265,7 +266,7 @@ input_locate <- function(x) {
       return(list(lon = lon, lat = lat, oprj = oprj))
     } else {
       stop(paste0('"loc" should contain coordinates.'),
-           call. = FALSE
+        call. = FALSE
       )
     }
   } else {
@@ -288,7 +289,7 @@ input_table <- function(x, id) {
     type <- as.character(unique(type))
     if (length(type) > 1 || type != "POINT") {
       stop(paste0('"', id, '" geometry should be of type POINT.'),
-           call. = FALSE
+        call. = FALSE
       )
     }
     if (inherits(x, "sfc")) {
@@ -321,7 +322,7 @@ input_table <- function(x, id) {
       return(x)
     } else {
       stop(paste0('"', id, '" should contain coordinates.'),
-           call. = FALSE
+        call. = FALSE
       )
     }
   } else {

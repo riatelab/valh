@@ -2,7 +2,7 @@
 % Please edit documentation in R/vl_isochrone.R
 \name{vl_isochrone}
 \alias{vl_isochrone}
-\title{Get Isochrones from a Point}
+\title{Get isochrones and isodistances from a point}
 \usage{
 vl_isochrone(
   loc,
@@ -23,19 +23,19 @@ vl_isochrone(
   \item an sf object of type POINT.
 }}
 
-\item{times}{a vector of travel times (in minutes) to compute the
+\item{times}{vector of travel times (in minutes) to compute the
 isochrones. The maximum number of isochrones is 4. The minimal value must
 be greater than 0.}
 
-\item{distances}{a vector of travel distances (in kilometers) to compute the
+\item{distances}{vector of travel distances (in kilometers) to compute the
 isochrones. The maximum number of isochrones is 4. The minimal value must
 be greater than 0.}
 
-\item{costing}{the costing model to use for the route. Default is
-"auto".\cr}
+\item{costing}{costing model to use.}
 
-\item{costing_options}{a list of options to use with the costing model
-(see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}}
+\item{costing_options}{list of options to use with the costing model
+(see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
+for more details about the options available for each costing model).}
 
 \item{server}{URL of the Valhalla server.}
 }
@@ -45,7 +45,9 @@ An sf MULTIPOLYGON object is returned with the following fields:
 and 'contour' (the value of the metric).
 }
 \description{
-Build and send a Valhalla API query to get isochrones from a point.
+Build and send a Valhalla API query to get isochrones or
+isodistances from a point.\cr
+This function interfaces with the \emph{Isochrone & Isodistance} service.\cr
 Note that you must provide either 'times' or 'distances' to compute the isochrones
 at given times or distances from the center point.
 }

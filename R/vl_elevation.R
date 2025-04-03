@@ -1,11 +1,12 @@
 #' @name vl_elevation
-#' @title Get Elevation Along a Route
-#' @description Build and send a Valhalla API query to get the elevation at a
-#' set of input locations.
+#' @title Get elevation along a route
+#' @description
+#' Build and send a Valhalla API query to get the elevation at a
+#' set of input locations.\cr
 #' This function interfaces with the \emph{height} service.\cr
 #' If \code{sampling_dist} is provided, the elevation is sampled at regular
 #' intervals along the input locations.
-#' @param loc one (or multiples) point(s) to snap to the street network.
+#' @param loc one (or multiples) point(s) to get elevations.
 #' \code{loc} can be: \itemize{
 #'   \item a vector of coordinates (longitude and latitude, WGS 84),
 #'   \item a data.frame of longitudes and latitudes (WGS 84),
@@ -13,7 +14,7 @@
 #'   \item an sfc object of type POINT,
 #'   \item an sf object of type POINT.
 #' }
-#' @param sampling_dist the distance between each point to sample the elevation
+#' @param sampling_dist distance between each point to sample the elevation
 #' (in meters). Default is no sampling.
 #' @param server URL of the Valhalla server.
 #' @returns An sf POINT object is returned with the following fields: 'distance'

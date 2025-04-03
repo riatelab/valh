@@ -50,13 +50,11 @@ the order they are stored in \code{loc} and the last row or element is
 the destination.\cr
 If relevant, row names are used as identifiers.}
 
-\item{costing}{the costing model to use for the route. Default is
-"auto".}
+\item{costing}{costing model to use.}
 
-\item{costing_options}{a list of options to use with the costing model
+\item{costing_options}{list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
-for more details about the options available for each costing model).
-Default is an empty list.}
+for more details about the options available for each costing model).}
 
 \item{server}{URL of the Valhalla server.}
 }
@@ -71,11 +69,10 @@ It contains 4 fields: \itemize{
 }
 \description{
 Build and send a Valhalla API query to get the travel geometry
-between two points. This function interfaces with the \emph{route} Valhalla
-service.\cr
+between two points.\cr
+This function interfaces with the \emph{route} Valhalla service.\cr
 Use \code{src} and \code{dst} to get the shortest direct route between
-two points.\cr
-Use \code{loc} to get the shortest route between two points using
+two points. Use \code{loc} to get the shortest route between two points using
 ordered waypoints.
 }
 \examples{
