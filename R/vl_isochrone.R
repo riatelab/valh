@@ -13,9 +13,11 @@
 #'   \item an sf object of type POINT.
 #' }
 #' @param times a vector of travel times (in minutes) to compute the
-#' isochrones.
-#' @param distances a vector of travel distances (in meters) to compute the
-#' isochrones.
+#' isochrones. The maximum number of isochrones is 4. The minimal value must
+#' be greater than 0.
+#' @param distances a vector of travel distances (in kilometers) to compute the
+#' isochrones. The maximum number of isochrones is 4. The minimal value must
+#' be greater than 0.
 #' @param costing the costing model to use for the route. Default is
 #' "auto".\cr
 #' @param costing_options a list of options to use with the costing model
@@ -46,15 +48,10 @@
 #' iso2 <- vl_isochrone(loc = pt2, times = c(15, 30, 45, 60), costing = "bicycle")
 #' }
 #' @export
-vl_isochrone <- function(
-    loc,
-    times,
-    distances,
-    costing = "auto",
-    costing_options = list(),
-    val_server = "https://valhalla1.openstreetmap.de/") {
-  # Handle input point(s)
-  loc <- input_route(x = loc, single = TRUE, id = "center")
+vl_isochrone <- function(loc, times, distances, costing = "auto", costing_options = list(),
+                         val_server = "https://valhalla1.openstreetmap.de/") {
+    # Handle input point(s)
+  loc <- input_route(x = loc, single = TRUE, id = "loc")
   oprj <- loc$oprj
   locs <- lapply(seq_along(loc$lon), function(i) list(lon = loc$lon[i], lat = loc$lat[i]))
 
@@ -62,8 +59,22 @@ vl_isochrone <- function(
   if (!missing(times) && !missing(distances)) {
     stop("You must provide either 'times' or 'distances', not both.", call. = FALSE)
   } else if (!missing(times)) {
+    if (isFALSE(min(times) > 0)) {
+      stop("The minimal value of 'times' must be greater than 0.", call. = FALSE)
+    }
+    if (isFALSE(length(times) < 5)) {
+      stop(paste0("The Valhalla isochrone service can only produce a maximum",
+                  "of 4 isochrones at a time."), call. = FALSE)
+    }
     contours <- lapply(times, function(x) list(time = x))
   } else if (!missing(distances)) {
+    if (isFALSE(min(distances) > 0)) {
+      stop("The minimal value of 'distances' must be greater than 0.", call. = FALSE)
+    }
+    if (isFALSE(length(distances) < 5)) {
+      stop(paste0("The Valhalla isochrone service can only produce a maximum",
+                  "of 4 isochrones at a time."), call. = FALSE)
+    }
     contours <- lapply(distances, function(x) list(distance = x))
   } else {
     stop("You must provide either 'times' or 'distances'.", call. = FALSE)

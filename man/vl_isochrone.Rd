@@ -24,10 +24,12 @@ vl_isochrone(
 }}
 
 \item{times}{a vector of travel times (in minutes) to compute the
-isochrones.}
+isochrones. The maximum number of isochrones is 4. The minimal value must
+be greater than 0.}
 
-\item{distances}{a vector of travel distances (in meters) to compute the
-isochrones.}
+\item{distances}{a vector of travel distances (in kilometers) to compute the
+isochrones. The maximum number of isochrones is 4. The minimal value must
+be greater than 0.}
 
 \item{costing}{the costing model to use for the route. Default is
 "auto".\cr}
