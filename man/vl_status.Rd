@@ -4,10 +4,10 @@
 \alias{vl_status}
 \title{Get Valhalla Service Status}
 \usage{
-vl_status(val_server = "https://valhalla1.openstreetmap.de/", verbose = FALSE)
+vl_status(server = getOption("valh.server"), verbose = FALSE)
 }
 \arguments{
-\item{val_server}{Valhalla server URL}
+\item{server}{URL of the Valhalla server.}
 
 \item{verbose}{if TRUE and if the service has it enabled,
 it will return additional information about the loaded tileset.}

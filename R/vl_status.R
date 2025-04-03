@@ -4,7 +4,7 @@
 #' This function interfaces with the \emph{Status} Valhalla
 #' service.
 #'
-#' @param val_server Valhalla server URL
+#' @param server URL of the Valhalla server.
 #' @param verbose if TRUE and if the service has it enabled,
 #' it will return additional information about the loaded tileset.
 #'
@@ -13,13 +13,13 @@
 #'
 #' @examples
 #' vl_status("https://valhalla1.openstreetmap.de/", verbose = FALSE)
-vl_status <- function(val_server = "https://valhalla1.openstreetmap.de/",
+vl_status <- function(server = getOption("valh.server"),
                       verbose = FALSE) {
   # Build the JSON argument of the request
   vrbs <- ifelse(isTRUE(verbose), '?json={"verbose": true}', "")
 
   # Construct the url
-  url <- paste0(base_url(val_server), "status", vrbs)
+  url <- paste0(base_url(server), "status", vrbs)
 
   # Send the request and handle possible errors
   r <- get_results(url)

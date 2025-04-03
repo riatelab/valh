@@ -9,7 +9,7 @@ vl_locate(
   verbose = FALSE,
   costing = "auto",
   costing_options = list(),
-  val_server = "https://valhalla1.openstreetmap.de/"
+  server = getOption("valh.server")
 )
 }
 \arguments{
@@ -32,8 +32,7 @@ vl_locate(
 for more details about the options available for each costing model).
 Default is an empty list.\cr}
 
-\item{val_server}{the URL of the Valhalla server. Default is the demo server
-(https://valhalla1.openstreetmap.de/).}
+\item{server}{URL of the Valhalla server.}
 }
 \value{
 If there is only one input point, return a single sf object

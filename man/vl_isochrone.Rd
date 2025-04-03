@@ -10,7 +10,7 @@ vl_isochrone(
   distances,
   costing = "auto",
   costing_options = list(),
-  val_server = "https://valhalla1.openstreetmap.de/"
+  server = getOption("valh.server")
 )
 }
 \arguments{
@@ -37,8 +37,7 @@ be greater than 0.}
 \item{costing_options}{a list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}}
 
-\item{val_server}{the URL of the Valhalla server. Default is the demo server
-(https://valhalla1.openstreetmap.de/).}
+\item{server}{URL of the Valhalla server.}
 }
 \value{
 An sf MULTIPOLYGON object is returned with the following fields:

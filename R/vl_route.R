@@ -41,15 +41,14 @@
 #' The first row or element is the starting point then waypoints are used in
 #' the order they are stored in \code{loc} and the last row or element is
 #' the destination.\cr
-#' If relevant, row names are used as identifiers.\cr
+#' If relevant, row names are used as identifiers.
 #' @param costing the costing model to use for the route. Default is
-#' "auto".\cr
+#' "auto".
 #' @param costing_options a list of options to use with the costing model
 #' (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 #' for more details about the options available for each costing model).
-#' Default is an empty list.\cr
-#' @param val_server the URL of the Valhalla server. Default is the demo server
-#' (https://valhalla1.openstreetmap.de/).
+#' Default is an empty list.
+#' @param server URL of the Valhalla server.
 #' @return
 #' The output of this function is an sf LINESTRING of the shortest route.\cr
 #' It contains 4 fields: \itemize{
@@ -85,7 +84,9 @@
 #' )
 #' }
 #' @export
-vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), val_server = "https://valhalla1.openstreetmap.de/") {
+vl_route <- function(src, dst, loc,
+                     costing = "auto", costing_options = list(),
+                     server = getOption("valh.server")) {
   # Handle input points
   if (missing(loc)) {
     # From src to dst
@@ -118,7 +119,11 @@ vl_route <- function(src, dst, loc, costing = "auto", costing_options = list(), 
   }
 
   # Construct the URL
-  url <- paste0(base_url(val_server), "route?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(
+    base_url(server),
+    "route?json=",
+    jsonlite::toJSON(json, auto_unbox = TRUE)
+  )
 
   # Send the request and handle possible errors
   e <- try(

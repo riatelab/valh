@@ -10,7 +10,7 @@ vl_route(
   loc,
   costing = "auto",
   costing_options = list(),
-  val_server = "https://valhalla1.openstreetmap.de/"
+  server = getOption("valh.server")
 )
 }
 \arguments{
@@ -48,18 +48,17 @@ route. \code{loc} can be: \itemize{
 The first row or element is the starting point then waypoints are used in
 the order they are stored in \code{loc} and the last row or element is
 the destination.\cr
-If relevant, row names are used as identifiers.\cr}
+If relevant, row names are used as identifiers.}
 
 \item{costing}{the costing model to use for the route. Default is
-"auto".\cr}
+"auto".}
 
 \item{costing_options}{a list of options to use with the costing model
 (see \url{https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-options}
 for more details about the options available for each costing model).
-Default is an empty list.\cr}
+Default is an empty list.}
 
-\item{val_server}{the URL of the Valhalla server. Default is the demo server
-(https://valhalla1.openstreetmap.de/).}
+\item{server}{URL of the Valhalla server.}
 }
 \value{
 The output of this function is an sf LINESTRING of the shortest route.\cr
