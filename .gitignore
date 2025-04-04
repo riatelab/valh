@@ -50,3 +50,4 @@ rsconnect/
 
 # JetBrains IDEs
 .idea/
+inst/doc

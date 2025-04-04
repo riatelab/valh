@@ -21,8 +21,11 @@ Imports:
 Depends:
     R (>= 3.5.0)
 Suggests: 
+    knitr,
+    rmarkdown,
     tinytest
 URL: https://github.com/riatelab/valh
 BugReports: https://github.com/riatelab/valh/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.2
+VignetteBuilder: knitr

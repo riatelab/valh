@@ -1,0 +1,172 @@
+---
+title: "Installing Valhalla locally with Docker"
+author: "Matthieu Viry and Timothée Giraud"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 1
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{local-valhalla}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+Valhalla is an open-source routing engine that uses OpenStreetMap data to provide
+routing services. A demo server that is open to the public and includes a full planet
+graph is available at [https://valhalla.openstreetmap.de](https://valhalla.openstreetmap.de).
+
+However, the valhalla documentation states that *"usage of the demo server follows the usual
+fair-usage policy as OSRM & Nominatim demo servers"*
+([source](https://valhalla.github.io/valhalla/#demo-server)) and that this is enforced by
+a rate limit of "*1 call/user/sec and 100 calls/sec total*"
+([source](https://github.com/valhalla/valhalla/discussions/3373#discussioncomment-1644713)).
+
+This means that if you want to use Valhalla for a large number of requests, you will need to
+install it locally or on your own server.
+
+This vignette explains how to install Valhalla locally using Docker.
+
+## Prerequisites
+
+To follow this vignette, you need to have Docker installed and running on your machine or server
+as well as a terminal to run the commands.
+The commands in this vignette should work on any operating system (Linux, MacOS, Windows).
+
+The installation of Docker is not covered here, but you can find the instructions on the official
+Docker website:
+[https://docs.docker.com/get-started/get-docker/](https://docs.docker.com/get-started/get-docker/).
+To ensure that Docker is installed correctly, you can run the following command in your terminal:
+
+```bash
+docker run hello-world
+```
+
+If Docker is installed correctly you should see a message saying "Hello from Docker!".
+
+## Valhalla installation
+
+Several Docker images are available,
+[the official one provided by Valhalla](https://github.com/orgs/valhalla/packages)
+and [one maintained by the community](https://github.com/nilsnolde/docker-valhalla).
+
+The community-maintained image features many additional options, particularly useful for
+customizing the Valhalla instance to be created. This is the one we'll be using.
+
+### Downloading an OSM extract
+
+The first thing you need is an OpenStreetMap file, in osm.pbf format, of the region you want
+to work on.
+
+You can download an extract of the OSM data from [Geofabrik](https://download.geofabrik.de/)
+or [BBBike](https://extract.bbbike.org/).
+Planet files are available on [https://planet.openstreetmap.org/](https://planet.openstreetmap.org/),
+but they are very large and not recommended for local use (as they would require a lot of memory).
+
+Create a folder in which to store this file, here we'll call it “routing-valhalla” (use
+`mkdir routing-valhalla` in your terminal to create it).
+Then, download the OSM extract and move it to this folder.
+
+### Running the Docker container
+
+To run the Docker container, you need to run the following command in your terminal (you need
+to be in the parent folder of the `routing-valhalla` folder you created earlier, or else you
+will need to adapt the path to the folder):
+
+```bash
+docker run -t --name valhalla_server \
+    -e build_elevation=True \
+    -p 8002:8002 \
+    -v $PWD/routing-valhalla:/custom_files \
+    ghcr.io/nilsnolde/docker-valhalla/valhalla:latest
+```
+
+Here we are using:
+
+- the `-t` option to run the container in interactive mode,
+- the `--name` option to name the container `valhalla_server`,
+- the `-p` option to publish the container's port 8002 to the host's port 8002,
+- the `-v` option to mount the folder we created earlier (`routing-valhalla`)
+  to the `/custom_files` folder in the container,
+- `ghcr.io/nilsnolde/docker-valhalla/valhalla:latest` image to run the container.
+
+and more importantly,
+
+- the `-e` option to set the environment variable `build_elevation` to `True`,
+  which will build the elevation data for the region.
+
+Other useful options are listed on the
+[image repository](https://github.com/nilsnolde/docker-valhalla?tab=readme-ov-file#environment-variables).
+
+These include :
+- `build_elevation` to download and build elevation data (default: `False`), this is particularly
+  useful for bicycle and pedestrian routing,
+- `build_admins` to build administrative boundaries (default: `False`), this is useful for applying
+  border-crossing penalties,
+- `build_time_zones` to build timezone data (default: `False`), this is useful for time-dependent
+  routing.
+
+Once the graph is built, you should see a message like this:
+
+```bash
+INFO: Found config file. Starting valhalla service!
+```
+
+Note that this message is often followed by a several other messages, such as:
+
+```bash
+[INFO] Tile extract successfully loaded with tile count: 166
+[WARN] (stat): /custom_files/traffic.tar No such file or directory
+[WARN] Traffic tile extract could not be loaded
+```
+
+This is normal, as we did not provide traffic data to the container (and as traffic data are
+loaded when the server is started).
+
+You can now access the Valhalla API at `http://localhost:8002/` (go to http://localhost:8002/status
+in your browser to check that the server is running).
+
+### Stopping/restarting the container
+
+To stop the container, you can first kill the process running in the terminal (using `Ctrl+C`), or
+you can run the following command in another terminal:
+
+```bash
+docker stop valhalla_server
+```
+
+To restart the container, you can run the following command in your terminal:
+
+```bash
+docker start valhalla_server
+```
+
+This time the server will start instantly, as the graph has already been built, and the container
+will run in the background (in detached mode). If needed you can check the logs of the container with:
+
+```bash
+docker logs valhalla_server
+```
+
+## Using Valhalla with R
+
+To use your custom Valhalla instance with R and the `valh` package, you just need to change the
+`valh.server` option to the url of your server or your machine :
+
+```r
+options(valh.server = "http://localhost:8002/")
+```
+
+You can also set this option in your `.Rprofile` file to make it permanent.
+
+You're now ready to use `valh` with your own Valhalla installation!
