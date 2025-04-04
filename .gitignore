@@ -51,3 +51,5 @@ rsconnect/
 # JetBrains IDEs
 .idea/
 inst/doc
+/doc/
+/Meta/

@@ -8,7 +8,7 @@ output:
     toc_depth: 1
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{install-valhalla}
+  %\VignetteIndexEntry{Installing Valhalla with Docker}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
