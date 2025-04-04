@@ -1,5 +1,5 @@
 ---
-title: "Installing Valhalla locally with Docker"
+title: "Installing Valhalla with Docker"
 author: "Matthieu Viry and Timothée Giraud"
 date: "`r Sys.Date()`"
 output:
@@ -8,7 +8,7 @@ output:
     toc_depth: 1
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{local-valhalla}
+  %\VignetteIndexEntry{install-valhalla}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -35,7 +35,11 @@ a rate limit of "*1 call/user/sec and 100 calls/sec total*"
 This means that if you want to use Valhalla for a large number of requests, you will need to
 install it locally or on your own server.
 
-This vignette explains how to install Valhalla locally using Docker.
+Valhalla is a C++ application that can be compiled on most of modern platform and architectures,
+but this can be challenging if you're not familiar with development tools and the command line.
+The easiest way to install Valhalla is to use [Docker](https://docs.docker.com/), which allows
+you to run Valhalla in a container without having to install it on your machine.
+
 
 ## Prerequisites
 
@@ -133,12 +137,13 @@ Note that this message is often followed by a several other messages, such as:
 This is normal, as we did not provide traffic data to the container (and as traffic data are
 loaded when the server is started).
 
-You can now access the Valhalla API at `http://localhost:8002/` (go to http://localhost:8002/status
-in your browser to check that the server is running).
+You can now access the Valhalla API at `http://localhost:8002/` (replace `localhost`
+by the IP address of your server if you are running it on a remote server).
+Go to http://localhost:8002/status in your browser to check that the server is running).
 
-### Stopping/restarting the container
+### Interacting with the container
 
-To stop the container, you can first kill the process running in the terminal (using `Ctrl+C`), or
+To stop the container, you can kill the process running in the terminal (using `Ctrl+C`), or
 you can run the following command in another terminal:
 
 ```bash
@@ -156,6 +161,13 @@ will run in the background (in detached mode). If needed you can check the logs 
 
 ```bash
 docker logs valhalla_server
+```
+
+Finally, to totally get rid of the container and the image, you can run the following commands:
+
+```bash
+docker rm valhalla_server
+docker rmi ghcr.io/nilsnolde/docker-valhalla/valhalla:latest
 ```
 
 ## Using Valhalla with R
