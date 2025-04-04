@@ -7,7 +7,7 @@
 vl_elevation(loc, sampling_dist, server = getOption("valh.server"))
 }
 \arguments{
-\item{loc}{one (or multiples) point(s) to get elevations.
+\item{loc}{one (or multiples) point(s) at which to get elevation.
 \code{loc} can be: \itemize{
   \item a vector of coordinates (longitude and latitude, WGS 84),
   \item a data.frame of longitudes and latitudes (WGS 84),

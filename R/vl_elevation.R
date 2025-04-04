@@ -6,7 +6,7 @@
 #' This function interfaces with the \emph{height} service.\cr
 #' If \code{sampling_dist} is provided, the elevation is sampled at regular
 #' intervals along the input locations.
-#' @param loc one (or multiples) point(s) to get elevations.
+#' @param loc one (or multiples) point(s) at which to get elevation.
 #' \code{loc} can be: \itemize{
 #'   \item a vector of coordinates (longitude and latitude, WGS 84),
 #'   \item a data.frame of longitudes and latitudes (WGS 84),
