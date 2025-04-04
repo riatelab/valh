@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   loc <- vl_locate(x_v, costing = "bicycle", costing_options = list(cycling_speed = 190, bicycle_type = "road"))
   wait()
   expect_inherits(loc, "sf")

@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   expect_error(vl_isochrone(x_v))
   expect_error(vl_isochrone(x_v, times = c(0,15,20,30)))
   expect_error(vl_isochrone(x_v, times = c(15,20,30,40,50)))

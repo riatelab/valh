@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   x <- vl_matrix(src = x_df[1:10, ], dst = x_df[11:20, ])
   expect_true(length(x)==4)
   expect_equal(dim(x$sources), c(10,2))

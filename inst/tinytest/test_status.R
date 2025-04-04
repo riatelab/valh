@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   status <- vl_status(verbose = FALSE)
   wait()
   expect_equal(length(status), 3)

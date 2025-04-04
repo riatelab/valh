@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   loc <- vl_elevation(x_v)
   wait()
   expect_inherits(loc, "sf")

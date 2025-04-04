@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   expect_silent(x <- vl_route(src = x_df[1, ], dst = x_df[2, ]))
   wait()
   expect_inherits(x, "sf")

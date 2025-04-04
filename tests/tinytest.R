@@ -1,5 +1,5 @@
 if (requireNamespace("tinytest", quietly = TRUE)) {
-  # local_server <- FALSE
+  valh.server = Sys.getenv("VALHALLA")
   demo_server <- T
   suppressPackageStartupMessages(library(sf))
   x_sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)

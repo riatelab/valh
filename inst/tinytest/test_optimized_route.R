@@ -1,4 +1,5 @@
 if(demo_server){
+  options(valh.server = valh.server)
   expect_silent(x <- vl_optimized_route(loc = x_sf[1:6, ]))
   wait()
   expect_silent(y <- vl_optimized_route(loc = x_df[1:6, ],
