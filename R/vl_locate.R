@@ -1,7 +1,7 @@
 #' @name vl_locate
 #' @title Get the nearest point on the road network
 #' @description
-#' This function interfaces with the \emph{nearest} Valhalla service.
+#' This function interfaces with the \emph{locate} Valhalla service.
 #' @param loc one (or multiples) point(s) to snap to the street network.
 #' \code{loc} can be: \itemize{
 #'   \item a vector of coordinates (longitude and latitude, WGS 84),

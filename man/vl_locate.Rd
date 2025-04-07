@@ -39,7 +39,7 @@ If there is more than one input point, return a list of sf objects,
 one for each input point.
 }
 \description{
-This function interfaces with the \emph{nearest} Valhalla service.
+This function interfaces with the \emph{locate} Valhalla service.
 }
 \examples{
 \dontrun{
