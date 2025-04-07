@@ -1,8 +1,6 @@
 if (requireNamespace("tinytest", quietly = TRUE)) {
-  if (nzchar(Sys.getenv("VALHALLA_CI"))){
-    valh.server <- Sys.getenv("VALHALLA_CI")
-    demo_server <- TRUE
-  }
+  valh.server <- Sys.getenv("VALHALLA_CI")
+  demo_server <- ifelse(valh.server == '', FALSE, TRUE)
   suppressPackageStartupMessages(library(sf))
   x_sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
   x_df <- read.csv(system.file("csv/apotheke.csv", package = "valh"))
