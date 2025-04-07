@@ -5,6 +5,9 @@ output:
 ---
 # valh
 
+[![CRAN](https://www.r-pkg.org/badges/version/valh)](https://cran.r-project.org/package=valh)
+[![R build status](https://github.com/riatelab/valh/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/riatelab/valh/actions)
+[![codecov](https://codecov.io/gh/riatelab/valh/branch/master/graph/badge.svg)](https://app.codecov.io/gh/riatelab/valh)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ***Interface Between R and the OpenStreetMap-Based Routing Service [Valhalla](http://valhalla.github.io/)***
@@ -87,15 +90,15 @@ package which provides an R interface to the OSRM routing service.
 Note that there are other packages that provide an interface to Valhalla API from R :
 
 - [valhallr](https://github.com/chris31415926535/valhallr/): This package is on CRAN,
-  but does not allow access to various Valhalla services (notably *height*, *locate*
-  and *optimized route*). In addition, it calls on many heavy dependencies to install,
+  but only allows you to access to some Valhalla services (*height*, *locate*
+  and *optimized route* are notably absent). In addition, it calls on many heavy dependencies to install,
   whereas `valh` is particularly light on dependencies.
   Finally, it doesn't allow you to work directly with `sf` objects as input.
 
 - [rvalhalla](https://github.com/Robinlovelace/rvalhalla): This package is not on the CRAN, and while it
   provides access to various Valhalla services, it only does the heavy lifting needed to
-  easily use the data for two of the services (*route* and *sources_to_target*). Nor does it allow
-  you to work directly with `sf` objects as input.
+  easily use the data for two of the services (*route* and *sources_to_target*). In addition, it doesn't
+  allow you to work directly with `sf` objects as input.
 
 ## Community Guidelines
 
