@@ -4,5 +4,7 @@
 }
 
 .onLoad <- function(libname, pkgname) {
-  options(valh.server = "https://valhalla1.openstreetmap.de/")
+  if (is.null(getOption("valh.server"))){
+    options(valh.server = "https://valhalla1.openstreetmap.de/")
+  }
 }
