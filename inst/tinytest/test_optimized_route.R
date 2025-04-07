@@ -1,12 +1,10 @@
 if(demo_server){
   options(valh.server = valh.server)
   expect_silent(x <- vl_optimized_route(loc = x_sf[1:6, ]))
-  wait()
   expect_silent(y <- vl_optimized_route(loc = x_df[1:6, ],
                                         end_at_start = TRUE,
                                         costing = "bicycle",
                                         costing_options = list(bicycle_type = "Mountain")))
-  wait()
   expect_inherits(x$shape, "sf")
   expect_true(nrow(x$shape) == 5)
   expect_identical(st_crs(x$shape), st_crs(x_sf))

@@ -6,11 +6,9 @@ if(demo_server){
   expect_equal(dim(x$destinations), c(10,2))
   expect_equal(dim(x$durations), c(10,10))
   expect_equal(dim(x$distances), c(10,10))
-  wait()
   expect_silent(y <- vl_matrix(loc = x_sf[1:10,],
                                costing = "bicycle",
                                costing_options = list(bicycle_type = "Road")))
-  wait()
   expect_true(max(diag(y$durations)) == 0)
   expect_identical(row.names(y$durations), row.names(x_sf[1:10, ]))
 }
