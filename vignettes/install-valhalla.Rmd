@@ -139,7 +139,7 @@ loaded when the server is started).
 
 You can now access the Valhalla API at `http://localhost:8002/` (replace `localhost`
 by the IP address of your server if you are running it on a remote server).
-Go to http://localhost:8002/status in your browser to check that the server is running).
+Go to `http://localhost:8002/status` in your browser to check that the server is running).
 
 ### Interacting with the container
 
