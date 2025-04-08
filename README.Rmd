@@ -80,9 +80,10 @@ remotes::install_github("riatelab/valh")
 
 ## Motivation & Alternatives
 
-The package is developed to provide an interface to the Valhalla routing service from R
-that works well with `sf` objects as input (but not only: in `valh` a special attention is
-given to supporting multiple input formats) and is easy to use.
+The package is designed to provide an easy-to-use interface to the Valhalla routing service from R.
+Special care has been taken to support multiple input formats, 
+and the package treats `sf` objects as first-class citizens in both input and output.
+Additionally, we have tried to maintain a minimal number of dependencies.   
 
 This package offers an API that closely resembles that of the [`osrm`](https://github.com/riatelab/osrm)
 package which provides an R interface to the OSRM routing service.
