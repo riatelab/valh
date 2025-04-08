@@ -3,7 +3,7 @@
 
 ![CRAN](https://www.r-pkg.org/badges/version/valh) [![R build
 status](https://github.com/riatelab/valh/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/riatelab/valh/actions)
-[![codecov](https://codecov.io/gh/riatelab/valh/graph/badge.svg)](https://codecov.io/gh/riatelab/valh)
+[![codecov](https://codecov.io/gh/riatelab/valh/graph/badge.svg)](https://app.codecov.io/gh/riatelab/valh)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
