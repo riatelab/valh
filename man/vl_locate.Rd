@@ -61,7 +61,7 @@ apotheke.sf <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
 # Ask for one point
 locsf1 <- apotheke.sf[1, ]
 # The result is a single sf object
-on_road_2 <- vl_locate(loc = locsf)
+on_road_2 <- vl_locate(loc = locsf1)
 
 # Ask for multiple points
 locsf2 <- apotheke.sf[1:3, ]
