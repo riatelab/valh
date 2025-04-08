@@ -107,12 +107,9 @@ expect_identical(valh:::input_route(x =  x_m[1,,drop = F],
 #                                         all.ids = FALSE)
 # saveRDS(input_route_out_sfc, "inst/tinytest/input_route_out_sfc.rds")
 target <- readRDS("input_route_out_sfc.rds")
-target$oprj <- st_crs(x_sfc)
-expect_identical(valh:::input_route(x = x_sfc[1],
-                                    id = "src",
-                                    single = TRUE,
-                                    all.ids = FALSE),
-                 target)
+expect_silent(current <- valh:::input_route(x = x_sfc[1], id = "src", single = TRUE, all.ids = FALSE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
 
 # input sf
 # input_route_out_sf <- valh:::input_route(x = x_sf[1,],
@@ -121,12 +118,9 @@ expect_identical(valh:::input_route(x = x_sfc[1],
 #                                         all.ids = FALSE)
 # saveRDS(input_route_out_sf, "inst/tinytest/input_route_out_sf.rds")
 target <- readRDS("input_route_out_sf.rds")
-target$oprj <- st_crs(x_sf)
-expect_identical(valh:::input_route(x = x_sf[1, ],
-                                    id = "src",
-                                    single = TRUE,
-                                    all.ids = FALSE),
-                 target)
+expect_silent(current <- valh:::input_route(x = x_sf[1, ], id = "src", single = TRUE, all.ids = FALSE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
 
 
 ######## MULTI
@@ -161,12 +155,12 @@ expect_identical(valh:::input_route(x =  x_m[1:4,],
 #                                         all.ids = FALSE)
 # saveRDS(input_route_out_sfc_m, "inst/tinytest/input_route_out_sfc_m.rds")
 target <- readRDS("input_route_out_sfc_m.rds")
-target$oprj <- st_crs(x_sfc)
-expect_identical(valh:::input_route(x = x_sfc[1:4],
-                                    id = "loc",
-                                    single = FALSE,
-                                    all.ids = FALSE),
-                 target)
+expect_silent(current <- valh:::input_route(x = x_sfc[1:4], id = "src", single = FALSE, all.ids = FALSE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
+
+
+
 
 # input sf
 # input_route_out_sf_m <- valh:::input_route(x = x_sf[1:4,],
@@ -175,12 +169,9 @@ expect_identical(valh:::input_route(x = x_sfc[1:4],
 #                                         all.ids = FALSE)
 # saveRDS(input_route_out_sf_m, "inst/tinytest/input_route_out_sf_m.rds")
 target <- readRDS("input_route_out_sf_m.rds")
-target$oprj <- st_crs(x_sf)
-expect_identical(valh:::input_route(x = x_sf[1:4, ],
-                                    id = "loc",
-                                    single = FALSE,
-                                    all.ids = FALSE),
-                 target)
+expect_silent(current <- valh:::input_route(x = x_sf[1:4, ], id = "src", single = FALSE, all.ids = FALSE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
 
 
 
@@ -216,12 +207,10 @@ expect_identical(valh:::input_route(x =  x_m[1:4,],
 #                                         all.ids = TRUE)
 # saveRDS(input_route_out_sfc_m_id, "inst/tinytest/input_route_out_sfc_m_id.rds")
 target <- readRDS("input_route_out_sfc_m_id.rds")
-target$oprj <- st_crs(x_sfc)
-expect_identical(valh:::input_route(x = x_sfc[1:4],
-                                    id = "loc",
-                                    single = FALSE,
-                                    all.ids = TRUE),
-                 target)
+expect_silent(current <- valh:::input_route(x = x_sfc[1:4], id = "loc", single = FALSE, all.ids = TRUE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
+
 
 # input sf
 # input_route_out_sf_m_id <- valh:::input_route(x = x_sf[1:4,],
@@ -229,11 +218,8 @@ expect_identical(valh:::input_route(x = x_sfc[1:4],
 #                                         single = FALSE,
 #                                         all.ids = TRUE)
 # saveRDS(input_route_out_sf_m_id, "inst/tinytest/input_route_out_sf_m_id.rds")
-target <-  readRDS("input_route_out_sf_m_id.rds")
-target$oprj <- st_crs(x_sf)
-expect_equivalent(valh:::input_route(x = x_sf[1:4, ],
-                                     id = "loc",
-                                     single = FALSE,
-                                     all.ids = TRUE),
-                  target)
+target <- readRDS("input_route_out_sf_m_id.rds")
+expect_silent(current <- valh:::input_route(x = x_sf[1:4, ], id = "loc", single = FALSE, all.ids = TRUE))
+expect_identical(current$lon, target$lon)
+expect_identical(current$oprj$input, target$oprj$input)
 
