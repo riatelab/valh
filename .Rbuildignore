@@ -4,3 +4,7 @@
 ^Meta$
 ^.github$
 ^\.github$
+CONTRIBUTING.md
+README.Rmd
+codecov.yml
+
