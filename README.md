@@ -1,7 +1,8 @@
 
 # valh
 
-![CRAN](https://www.r-pkg.org/badges/version/valh) [![R build
+[![CRAN](https://www.r-pkg.org/badges/version/valh)](https://CRAN.R-project.org/package=valh)
+[![R build
 status](https://github.com/riatelab/valh/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/riatelab/valh/actions)
 [![codecov](https://codecov.io/gh/riatelab/valh/graph/badge.svg)](https://app.codecov.io/gh/riatelab/valh)
 [![Project Status: Active – The project has reached a stable, usable
@@ -19,8 +20,8 @@ to the Valhalla API from R. It allows you to query the Valhalla API for
 routes, isochrones, time-distance matrices, nearest point on the road
 network, and elevation data.
 
-This package relies on the usage of a running Valhalla service (tested
-with v3.4.x-3.5.x of Valhalla).
+This package relies on the usage of a running Valhalla server (tested
+with versions 3.4.x and 3.5.x of Valhalla).
 
 ## Features
 
@@ -84,18 +85,14 @@ Note that there are other packages that provide an interface to Valhalla
 API from R :
 
 - [valhallr](https://github.com/chris31415926535/valhallr/): This
-  package is on CRAN, but only allows you to access to some Valhalla
-  services (*height*, *locate* and *optimized route* are notably
-  absent). In addition, it calls on many heavy dependencies to install,
-  whereas `valh` is particularly light on dependencies. Finally, it
-  doesn’t allow you to work directly with `sf` objects as input.
-
+  package is on CRAN. It provides access to some of Valhalla’s services
+  (*height*, *locate* and *optimized route* are notably missing). It
+  depends on a number of rather heavy packages and it does not allow
+  `sf` objects as input.
 - [rvalhalla](https://github.com/Robinlovelace/rvalhalla): This package
-  is not on the CRAN, and while it provides access to various Valhalla
-  services, it only does the heavy lifting needed to easily use the data
-  for two of the services (*route* and *sources_to_target*). In
-  addition, it doesn’t allow you to work directly with `sf` objects as
-  input.
+  is not on CRAN. Although it can provide access to several Valhalla
+  services, it only makes it easy to use two of them (*route* and
+  *sources_to_target*). It does not accept `sf` objects as input.
 
 ## Community Guidelines
 
