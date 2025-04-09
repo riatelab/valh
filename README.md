@@ -35,18 +35,18 @@ with versions 3.4.x and 3.5.x of Valhalla).
 
 ## Installation
 
-- Development version from GitHub:
+- Stable version from CRAN:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("riatelab/valh")
+install.packages("valh")
 ```
 
-<!-- - Stable version from CRAN: -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- install.packages("valh") -->
-<!-- ``` -->
+- Development version from the r-universe.
+
+``` r
+install.packages("valh", repos = "https://riatelab.r-universe.dev")
+```
+
 <!-- ## Demo -->
 <!-- This is a short overview of the main features of `valh`. The dataset -->
 <!-- used here is shipped with the package, it is a sample of 100 random -->

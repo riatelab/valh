@@ -33,19 +33,17 @@ This package relies on the usage of a running Valhalla server (tested with versi
 
 ## Installation
 
-- Development version from GitHub:
-
+- Stable version from CRAN:
 ```{r}
 #| eval: false
-# install.packages("remotes")
-remotes::install_github("riatelab/valh")
+install.packages("valh")
 ```
 
-<!-- - Stable version from CRAN: -->
-<!-- ```{r} -->
-<!-- #| eval: false -->
-<!-- install.packages("valh") -->
-<!-- ``` -->
+- Development version from the r-universe.
+```{r, eval=FALSE}
+install.packages("valh", repos = "https://riatelab.r-universe.dev")
+```
+
 
 <!-- ## Demo -->
 
