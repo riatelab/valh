@@ -8,3 +8,5 @@ CONTRIBUTING.md
 README.Rmd
 codecov.yml
 
+^CITATION\.cff$
+^codemeta\.json$
