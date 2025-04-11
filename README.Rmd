@@ -1,7 +1,5 @@
 ---
-output: 
-  github_document:
-      html_preview: false
+output: github_document
 ---
 # valh
 
@@ -19,7 +17,7 @@ This package provides an interface to the Valhalla API from R.
 It allows you to query the Valhalla API for routes, isochrones, time-distance matrices,
 nearest point on the road network, and elevation data.
 
-This package relies on the usage of a running Valhalla server (tested with versions 3.4.x and 3.5.x of Valhalla).
+This package relies on the usage of a [running Valhalla server](https://github.com/riatelab/valh?tab=readme-ov-file#installing-your-own-valhalla-server) (tested with versions 3.4.x and 3.5.x of Valhalla).
 
 ## Features
 
@@ -55,19 +53,10 @@ contributors](https://www.openstreetmap.org/copyright/en)) stored in a
 
 It demonstrates the use of  `vl_matrix`, `vl_route` and `vl_elevation` functions.
 
-```r
+```{r}
 library(valh)
 library(sf)
-```
-```
-Data: (c) OpenStreetMap contributors, ODbL 1.0 - http://www.openstreetmap.org/copyright
-Routing: Valhalla - valhalla.github.io/valhalla
-Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
-```
-
-```r
-pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"),
-                    quiet = TRUE)
+pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
 pharmacy <- pharmacy[1:10, ]
 ```
 
@@ -83,12 +72,10 @@ For example, we can compare the travel time between each pharmacy by bicycle:
 These costing options for each costing model ('auto', 'bicycle', etc.) are documented in
 [Valhalla's documentation](https://valhalla.github.io/valhalla/api/turn-by-turn/api-reference/#costing-models).
 
-```r
-default_bike <- vl_matrix(loc = pharmacy,
-                          costing = "bicycle")
+```{r}
+default_bike <- vl_matrix(loc = pharmacy, costing = "bicycle")
 
-road_bike <- vl_matrix(loc = pharmacy,
-                       costing = "bicycle",
+road_bike <- vl_matrix(loc = pharmacy, costing = "bicycle",
                        costing_options = list(bicycle_type = "Road", use_roads = "1"))
 ```
 
@@ -100,111 +87,71 @@ The object returned by `vl_matrix` is a list with 4 elements:
 - `durations` : travel time matrix between sources and destinations.
 
 
-```r
-head(default_bike$durations)
+```{r}
+(default_bike$durations[1:5, 1:5])
+(road_bike$durations[1:5, 1:5])
 ```
 
-```
-     1    2    3    4    5    6    7    8    9   10
-1  0.0 45.7 77.0 36.5 18.0 33.3 53.3 32.1 37.1  5.1
-2 48.9  0.0 98.4 30.8 43.5 77.0 83.4 56.4 75.2 45.5
-3 76.4 96.3  0.0 62.3 61.7 80.3 54.1 47.3 53.6 75.3
-4 33.2 29.7 61.7  0.0 20.4 54.8 63.6 34.6 47.0 31.7
-5 18.6 43.6 62.8 23.8  0.0 34.5 37.6 17.8 27.9 15.2
-6 31.2 75.1 78.2 58.3 33.3  0.0 31.0 30.7 27.9 32.3
-```
-
-```r
-head(road_bike$durations)
-```
-
-```
-     1    2    3    4    5    6    7    8    9   10
-1  0.0 32.8 51.2 25.2 13.1 21.5 33.0 22.1 27.7  4.0
-2 34.1  0.0 62.4 22.5 31.2 53.2 56.4 40.8 49.4 31.0
-3 49.7 62.6  0.0 44.0 40.9 52.8 36.2 30.6 35.6 49.5
-4 23.0 21.3 43.4  0.0 14.9 38.1 38.4 22.8 31.4 21.8
-5 12.4 30.3 41.8 15.5  0.0 23.6 28.1 13.2 21.0 11.1
-6 20.5 51.8 51.6 39.2 23.5  0.0 20.6 22.4 19.5 21.4
-```
 
 We can see not only that travel times are different (which is to be expected,
 given that we've changed the cyclist's default speed), but also that the path
 taken are different (as a consequence of the change in preference for using
 roads rather than cycle paths).
 
-```r
-default_bike$distances - road_bike$distances
-```
-
-```
-        1      2      3      4      5      6      7      8      9     10
-1   0.000  0.071  1.052  0.653  0.040  0.026  1.492 -0.003 -0.865  0.014
-2   0.017  0.000  2.376 -0.513 -0.001  0.045  0.865 -0.001  1.114  0.494
-3   1.176  2.107  0.000  0.074  0.759  0.405  0.069  0.750  0.812  1.172
-4   0.238 -0.343  0.042  0.000  0.013 -0.155  1.309  0.097 -0.385  0.238
-5   0.506  0.026  0.440  0.653  0.000  0.016 -0.872  0.000 -0.813  0.019
-6   0.009  0.767 -0.414 -0.123  0.012  0.000  0.132  0.001 -0.072  0.010
-7   0.013  0.111  0.016  0.053  0.047  0.040  0.000  0.054 -0.053  0.005
-8  -0.053  0.035  0.486  0.001  0.018  0.005  0.787  0.000 -0.340 -0.057
-9  -0.386 -0.173  0.557 -0.302  0.190 -0.794 -0.204 -0.221  0.000 -0.390
-10  0.000  0.025 -1.127  0.724  0.089  0.028  1.489 -0.006 -0.868  0.000
+```{r}
+(default_bike$distances - road_bike$distances)
 ```
 
 We now calculate a route between two points, by foot, using the `vl_route`
 function and calculate the elevation profile of the returned route, using
 the `vl_elevation` function.
 
-```r
+
+```{r, eval = FALSE}
+p1 <- pharmacy[3, ]
+p2 <- pharmacy[6, ]
+route <- vl_route(p1, p2, costing = "pedestrian")
+plot(st_geometry(route), main = "Route between 2 pharmacies")
+plot(c(st_geometry(p1), st_geometry(p2)), pch = 21, cex = 2, add = TRUE)
+```
+
+
+```{r, echo=FALSE, fig.path="man/figures/README", fig.width=3, fig.height=4, }
+
 p1 <- pharmacy[3, ]
 p2 <- pharmacy[6, ]
 
 route <- vl_route(p1, p2, costing = "pedestrian")
-
-# We transform the LineString to Point geometries
-pts_route <- sf::st_cast(route, "POINT")
-
-elev <- vl_elevation(loc = pts_route, sampling_dist = 10)
+par(mar = c(0, 0, 2, 0))
+# We plot the route and pharmacies
+plot(st_geometry(route), main = "Route between 2 pharmacies")
+plot(c(st_geometry(p1), st_geometry(p2)), pch = 21, cex = 2, add = TRUE)
 ```
+
+```{r}
+# We transform the LineString to Point geometries
+pts_route <- sf::st_cast(st_geometry(route), "POINT")
+
+elev <- vl_elevation(loc = pts_route, sampling_dist = 100)
+```
+
+
 
 The object returned is an sf object with a point for each location where the
 altitude has been sampled and with the attributes 'distance' (the cumulative
 distance to the first point) and 'height' (the altitude).
 
-
 We can use it to plot the elevation profile of our route.
 
-```r
-plot(as.matrix(st_drop_geometry(elev)), type = "l")
+```{r, fig.width=7, fig.height=4,  fig.path="man/figures/README"}
+plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), asp = 100,
+     main = "Elevation Profile")
 ```
 
-![Elevation profile](./man/figures/plot1.png)
-
-
-<!-- - `vl_matrix()` gives access to the *sources_to_targets* Valhalla service. In this -->
-<!--   example we use this function to get the median time needed to access ... -->
-
-
-<!-- - `vl_route()` is used to compute the shortest route between two -->
-<!--   points. Here we compute the shortest route between ... -->
-
-<!-- - `vl_optimized_route()` can be used to resolve the travelling salesman problem, -->
-<!--   it gives the shortest trip between a set of unordered points. In this -->
-<!--   example we want to obtain the shortest trip between ... -->
-
-<!-- - `vl_locate()` gives access to the *locate* Valhalla service. It returns -->
-<!--   the nearest points on the street network from any point. Here we will -->
-<!--   get the nearest point on the network from a couple of coordinates. -->
-
-<!-- - `vl_isochrone()` computes areas that are reachable within a given -->
-<!--   time span from a point and returns the reachable regions as polygons. -->
-<!--   These areas of equal travel time are called isochrones. Here we -->
-<!--   compute the isochrones from a specific point defined by its longitude -->
-<!--   and latitude. -->
 
 ## Installing your own Valhalla server
 
-We've included a [vignette](./vignettes/install-valhalla.Rmd) showing how to install
+We've included a [vignette](https://cran.r-project.org/web/packages/valh/vignettes/install-valhalla.html) showing how to install
 your own instance of Valhalla, either locally or on a remote server, using Docker.
 
 ## Motivation & Alternatives
