@@ -1,5 +1,5 @@
 
-# valh
+# valh <img src="man/figures/logo.png" align="right" width="140"/>
 
 [![CRAN](https://www.r-pkg.org/badges/version/valh)](https://CRAN.R-project.org/package=valh)
 [![R build
@@ -9,20 +9,22 @@ status](https://github.com/riatelab/valh/actions/workflows/check-standard.yaml/b
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-***Interface Between R and the OpenStreetMap-Based Routing Service
-[Valhalla](https://valhalla.github.io/valhalla/)***
-
 ## Description
 
+This package provides an interface to the Valhalla API from R.
 [Valhalla](https://valhalla.github.io/valhalla/) is a routing service
-that is based on OpenStreetMap data. This package provides an interface
-to the Valhalla API from R. It allows you to query the Valhalla API for
-routes, isochrones, time-distance matrices, nearest point on the road
-network, and elevation data.
+that is based on OpenStreetMap data. It allows you to query the Valhalla
+API for routes, isochrones, time-distance matrices, nearest point on the
+road network, and elevation data.
 
 This package relies on the usage of a [running Valhalla
 server](https://github.com/riatelab/valh?tab=readme-ov-file#installing-your-own-valhalla-server)
 (tested with versions 3.4.x and 3.5.x of Valhalla).
+
+<img src="man/figures/map.png" align="center" width="500"/>
+
+<small>[code for the
+map](https://gist.github.com/rCarto/8dfba641b807c20c8cbf72ef8ed0c9c5)<small/>
 
 ## Features
 
