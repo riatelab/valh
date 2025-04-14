@@ -10,7 +10,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' vl_status("https://valhalla1.openstreetmap.de/", verbose = FALSE)
+#' }
 vl_status <- function(server = getOption("valh.server"),
                       verbose = FALSE) {
   # Build the JSON argument of the request

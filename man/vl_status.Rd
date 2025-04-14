@@ -20,5 +20,7 @@ Use this function to return information on the Valhalla server (version etc.).\c
 This function interfaces with the \emph{Status} Valhalla service.
 }
 \examples{
+\dontrun{
 vl_status("https://valhalla1.openstreetmap.de/", verbose = FALSE)
+}
 }
