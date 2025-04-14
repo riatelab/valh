@@ -88,8 +88,8 @@ The object returned by `vl_matrix` is a list with 4 elements:
 
 
 ```{r}
-(default_bike$durations[1:5, 1:5])
-(road_bike$durations[1:5, 1:5])
+default_bike$durations[1:5, 1:5]
+road_bike$durations[1:5, 1:5]
 ```
 
 
@@ -99,7 +99,7 @@ taken are different (as a consequence of the change in preference for using
 roads rather than cycle paths).
 
 ```{r}
-(default_bike$distances - road_bike$distances)
+default_bike$distances - road_bike$distances
 ```
 
 We now calculate a route between two points, by foot, using the `vl_route`
@@ -135,13 +135,11 @@ pts_route <- sf::st_cast(st_geometry(route), "POINT")
 elev <- vl_elevation(loc = pts_route, sampling_dist = 100)
 ```
 
-
-
 The object returned is an sf object with a point for each location where the
 altitude has been sampled and with the attributes 'distance' (the cumulative
 distance to the first point) and 'height' (the altitude).
 
-We can use it to plot the elevation profile of our route.
+We can use it to plot the elevation profile of the route.
 
 ```{r, fig.width=7, fig.height=4,  fig.path="man/figures/README"}
 plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), asp = 100,
@@ -151,7 +149,7 @@ plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), a
 
 ## Installing your own Valhalla server
 
-We've included a [vignette](https://cran.r-project.org/web/packages/valh/vignettes/install-valhalla.html) showing how to install
+We've included a [vignette](https://CRAN.R-project.org/package=valh/vignettes/install-valhalla.html) showing how to install
 your own instance of Valhalla, either locally or on a remote server, using Docker.
 
 ## Motivation & Alternatives

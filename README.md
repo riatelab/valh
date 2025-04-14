@@ -71,7 +71,7 @@ library(valh)
 library(sf)
 ```
 
-    ## Linking to GEOS 3.13.1, GDAL 3.10.2, PROJ 9.6.0; sf_use_s2() is TRUE
+    ## Linking to GEOS 3.13.1, GDAL 3.10.3, PROJ 9.6.0; sf_use_s2() is TRUE
 
 ``` r
 pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
@@ -108,7 +108,7 @@ The object returned by `vl_matrix` is a list with 4 elements:
 - `durations` : travel time matrix between sources and destinations.
 
 ``` r
-(default_bike$durations[1:5, 1:5])
+default_bike$durations[1:5, 1:5]
 ```
 
     ##      1    2    3    4    5
@@ -119,7 +119,7 @@ The object returned by `vl_matrix` is a list with 4 elements:
     ## 5 18.6 43.6 62.8 23.8  0.0
 
 ``` r
-(road_bike$durations[1:5, 1:5])
+road_bike$durations[1:5, 1:5]
 ```
 
     ##      1    2    3    4    5
@@ -135,7 +135,7 @@ also that the path taken are different (as a consequence of the change
 in preference for using roads rather than cycle paths).
 
 ``` r
-(default_bike$distances - road_bike$distances)
+default_bike$distances - road_bike$distances
 ```
 
     ##         1      2      3      4      5      6      7      8      9     10
@@ -175,7 +175,7 @@ The object returned is an sf object with a point for each location where
 the altitude has been sampled and with the attributes ‘distance’ (the
 cumulative distance to the first point) and ‘height’ (the altitude).
 
-We can use it to plot the elevation profile of our route.
+We can use it to plot the elevation profile of the route.
 
 ``` r
 plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), asp = 100,
@@ -187,7 +187,7 @@ plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), a
 ## Installing your own Valhalla server
 
 We’ve included a
-[vignette](https://cran.r-project.org/web/packages/valh/vignettes/install-valhalla.html)
+[vignette](https://CRAN.R-project.org/package=valh/vignettes/install-valhalla.html)
 showing how to install your own instance of Valhalla, either locally or
 on a remote server, using Docker.
 
