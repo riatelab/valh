@@ -5,6 +5,7 @@
 ^.github$
 ^\.github$
 CONTRIBUTING.md
+LICENSE.md
 README.Rmd
 codecov.yml
 
