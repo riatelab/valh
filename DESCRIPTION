@@ -1,7 +1,7 @@
 Package: valh
 Type: Package
 Title: Interface Between R and the OpenStreetMap-Based Routing Service 'Valhalla'
-Version: 0.2.0
+Version: 0.1.0.9000
 Authors@R: c(person("Timothée", "Giraud", email = "timothee.giraud@cnrs.fr",
     role = c("cre","aut"),  comment = c(ORCID = "0000-0002-1932-3323")),
     person("Matthieu", "Viry", role = c("aut"),
