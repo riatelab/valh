@@ -29,9 +29,6 @@ vl_status <- function(server = getOption("valh.server"),
 
   # Convert to human readable date format
   res$tileset_last_modified <- as.POSIXct(res$tileset_last_modified, "%Y-%m-%d %H:%M")
-  if (!is.null(res$osm_changeset)) {
-    res$osm_changeset <- as.POSIXct(res$osm_changeset)
-  }
 
   if (!is.null(res$bbox)) {
     res$bbox <- sf::st_read(
