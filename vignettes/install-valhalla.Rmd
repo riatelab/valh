@@ -60,12 +60,11 @@ If Docker is installed correctly you should see a message saying "Hello from Doc
 
 ## Valhalla installation
 
-Several Docker images are available,
-[the official one provided by Valhalla](https://github.com/orgs/valhalla/packages)
-and [one maintained by the community](https://github.com/nilsnolde/docker-valhalla).
-
-The community-maintained image features many additional options, particularly useful for
-customizing the Valhalla instance to be created. This is the one we'll be using.
+[Official Docker images](https://github.com/orgs/valhalla/packages) are provided by Valhalla team.
+The one named "valhalla-scripted" features many options particularly useful for
+customizing the Valhalla instance to be created (see its
+[documentation](https://github.com/valhalla/valhalla/tree/master/docker) if needed)
+and it's therefore the one we use here.
 
 ### Downloading an OSM extract
 
@@ -77,7 +76,7 @@ or [BBBike](https://extract.bbbike.org/).
 Planet files are available on [https://planet.openstreetmap.org/](https://planet.openstreetmap.org/),
 but they are very large and not recommended for local use (as they would require a lot of memory).
 
-Create a folder in which to store this file, here we'll call it “routing-valhalla” (use
+Create a folder in which to store this file, here we'll call it `routing-valhalla` (use
 `mkdir routing-valhalla` in your terminal to create it).
 Then, download the OSM extract and move it to this folder.
 
@@ -92,7 +91,7 @@ docker run -t --name valhalla_server \
     -e build_elevation=True \
     -p 8002:8002 \
     -v $PWD/routing-valhalla:/custom_files \
-    ghcr.io/nilsnolde/docker-valhalla/valhalla:latest
+    ghcr.io/valhalla/valhalla-scripted:latest
 ```
 
 Here we are using:
@@ -102,22 +101,22 @@ Here we are using:
 - the `-p` option to publish the container's port 8002 to the host's port 8002,
 - the `-v` option to mount the folder we created earlier (`routing-valhalla`)
   to the `/custom_files` folder in the container,
-- `ghcr.io/nilsnolde/docker-valhalla/valhalla:latest` image to run the container.
+- `ghcr.io/valhalla/valhalla-scripted:latest` image to run the container.
 
 and more importantly,
 
 - the `-e` option to set the environment variable `build_elevation` to `True`,
-  which will build the elevation data for the region.
+  which builds the elevation data for the region.
 
 Other useful options are listed on the
-[image repository](https://github.com/nilsnolde/docker-valhalla?tab=readme-ov-file#environment-variables).
+[image's README file](https://github.com/valhalla/valhalla/tree/master/docker#environment-variables).
 
 These include :
 - `build_elevation` to download and build elevation data (default: `False`), this is particularly
   useful for bicycle and pedestrian routing,
-- `build_admins` to build administrative boundaries (default: `False`), this is useful for applying
+- `build_admins` to build administrative boundaries (default: `True`), this is useful for applying
   border-crossing penalties,
-- `build_time_zones` to build timezone data (default: `False`), this is useful for time-dependent
+- `build_time_zones` to build timezone data (default: `True`), this is useful for time-dependent
   routing.
 
 Once the graph is built, you should see a message like this:
@@ -156,7 +155,7 @@ To restart the container, you can run the following command in your terminal:
 docker start valhalla_server
 ```
 
-This time the server will start instantly, as the graph has already been built, and the container
+This time the server starts instantly, as the graph has already been built, and the container
 will run in the background (in detached mode). If needed you can check the logs of the container with:
 
 ```bash
@@ -167,7 +166,7 @@ Finally, to totally get rid of the container and the image, you can run the foll
 
 ```bash
 docker rm valhalla_server
-docker rmi ghcr.io/nilsnolde/docker-valhalla/valhalla:latest
+docker rmi ghcr.io/valhalla/valhalla-scripted:latest
 ```
 
 ## Using Valhalla with R
