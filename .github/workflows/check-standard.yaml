@@ -28,7 +28,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-      VALHALLA_URL: ${{ secrets.VALHALLA_URL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -41,9 +40,31 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Start Valhalla (Docker, Berlin)
+        if: runner.os == 'Linux'
+        run: |
+          set -eux
+          DATA_DIR="${RUNNER_TEMP}/valhalla"
+          mkdir -p "${DATA_DIR}"
+
+          docker run -dt --name valhalla -p 8002:8002 \
+            -v "${DATA_DIR}:/custom_files" \
+            -e tile_urls=https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf \
+            ghcr.io/valhalla/valhalla-scripted:latest
+
+          for i in {1..60}; do
+            if curl -sf http://localhost:8002/status; then
+              echo "Valhalla ready"; break
+            fi
+            sleep 2
+          done
+        shell: bash
+
       - name: Create and populate .Renviron file
         run: |
-          echo VALHALLA_CI="$VALHALLA_URL" >> ~/.Renviron
+          if [ "${RUNNER_OS}" = "Linux" ]; then
+            echo 'VALHALLA_CI="http://localhost:8002"' >> ~/.Renviron
+          fi
         shell: bash
 
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -55,3 +76,8 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - name: Stop Valhalla
+        if: runner.os == 'Linux'
+        run: |
+          docker rm -f valhalla || true
