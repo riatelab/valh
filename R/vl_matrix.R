@@ -105,13 +105,11 @@ vl_matrix <- function(src, dst, loc,
   }
 
   # Construct the URL
-  url <- paste0(
-    base_url(server), "sources_to_targets?json=",
-    jsonlite::toJSON(json, auto_unbox = TRUE)
-  )
+  url <- paste0(base_url(server), "sources_to_targets")
+  json_body <- jsonlite::toJSON(json, auto_unbox = TRUE)
 
-  # Send the request and handle possible errors
-  r <- get_results(url)
+  # Send the POST request and handle possible errors
+  r <- get_results(url, json_body)
 
   # Parse the response
   res <- jsonlite::fromJSON(rawToChar(r$content))
