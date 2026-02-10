@@ -10,13 +10,11 @@ name: test-coverage
 
 permissions: read-all
 
-
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      VALHALLA_URL: ${{ secrets.VALHALLA_URL }}
 
     steps:
       - uses: actions/checkout@v4
@@ -25,9 +23,28 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Start Valhalla (Docker, Berlin)
+        run: |
+          set -eux
+          DATA_DIR="${RUNNER_TEMP}/valhalla"
+          mkdir -p "${DATA_DIR}"
+
+          docker run -dt --name valhalla -p 8002:8002 \
+            -v "${DATA_DIR}:/custom_files" \
+            -e tile_urls=https://download.geofabrik.de/europe/germany/berlin-latest.osm.pbf \
+            ghcr.io/valhalla/valhalla-scripted:latest
+
+          for i in {1..60}; do
+            if curl -sf http://localhost:8002/status; then
+              echo "Valhalla ready"; break
+            fi
+            sleep 2
+          done
+        shell: bash
+
       - name: Create and populate .Renviron file
         run: |
-          echo VALHALLA_CI="$VALHALLA_URL" >> ~/.Renviron
+          echo 'VALHALLA_CI="http://localhost:8002"' >> ~/.Renviron
         shell: bash
 
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -61,3 +78,8 @@ jobs:
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
+
+      - name: Stop Valhalla
+        if: runner.os == 'Linux'
+        run: |
+          docker rm -f valhalla || true
