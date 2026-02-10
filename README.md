@@ -71,11 +71,11 @@ library(valh)
 library(sf)
 ```
 
-    ## Linking to GEOS 3.13.1, GDAL 3.10.3, PROJ 9.6.0; sf_use_s2() is TRUE
+    ## Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
 
 ``` r
 pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
-pharmacy <- pharmacy[1:10, ]
+pharmacy <- pharmacy[1:6, ]
 ```
 
 One of valhalla’s strengths is that it allows you to use dynamic costing
@@ -108,26 +108,28 @@ The object returned by `vl_matrix` is a list with 4 elements:
 - `durations` : travel time matrix between sources and destinations.
 
 ``` r
-default_bike$durations[1:5, 1:5]
+default_bike$durations
 ```
 
-    ##      1    2    3    4    5
-    ## 1  0.0 45.7 77.0 36.5 18.0
-    ## 2 48.9  0.0 98.4 30.8 43.5
-    ## 3 76.4 96.3  0.0 62.3 61.7
-    ## 4 33.2 29.7 61.7  0.0 20.4
-    ## 5 18.6 43.6 62.8 23.8  0.0
+    ##      1    2    3    4    5    6
+    ## 1  0.0 45.8 76.9 35.7 17.7 32.4
+    ## 2 46.5  0.0 86.7 29.5 42.7 75.4
+    ## 3 72.9 88.3  0.0 62.2 59.1 76.2
+    ## 4 33.0 29.6 62.0  0.0 20.7 55.8
+    ## 5 18.8 44.3 61.3 23.2  0.0 35.4
+    ## 6 32.2 75.5 75.7 60.4 34.6  0.0
 
 ``` r
-road_bike$durations[1:5, 1:5]
+road_bike$durations
 ```
 
-    ##      1    2    3    4    5
-    ## 1  0.0 32.8 51.2 25.2 13.1
-    ## 2 34.1  0.0 62.4 22.5 31.2
-    ## 3 49.7 62.6  0.0 44.0 40.9
-    ## 4 23.0 21.3 43.4  0.0 14.9
-    ## 5 12.4 30.3 41.8 15.5  0.0
+    ##      1    2    3    4    5    6
+    ## 1  0.0 33.1 51.5 25.2 13.2 21.8
+    ## 2 33.1  0.0 61.3 21.6 30.2 51.9
+    ## 3 50.1 62.8  0.0 43.6 41.5 53.3
+    ## 4 23.5 21.9 43.4  0.0 15.5 38.8
+    ## 5 12.6 31.2 42.3 15.7  0.0 23.9
+    ## 6 20.6 51.8 51.7 40.3 23.7  0.0
 
 We can see not only that travel times are different (which is to be
 expected, given that we’ve changed the cyclist’s default speed), but
@@ -138,17 +140,13 @@ in preference for using roads rather than cycle paths).
 default_bike$distances - road_bike$distances
 ```
 
-    ##         1      2      3      4      5      6      7      8      9     10
-    ## 1   0.000  0.071  1.052  0.653  0.040  0.026  1.492 -0.003 -0.865  0.014
-    ## 2   0.017  0.000  2.376 -0.513 -0.001  0.045  0.865 -0.001  1.114  0.494
-    ## 3   1.176  2.107  0.000  0.074  0.759  0.405  0.069  0.750  0.812  1.172
-    ## 4   0.238 -0.343  0.042  0.000  0.013 -0.155  1.309  0.097 -0.385  0.238
-    ## 5   0.506  0.026  0.440  0.653  0.000  0.016 -0.872  0.000 -0.813  0.019
-    ## 6   0.009  0.767 -0.414 -0.123  0.012  0.000  0.132  0.001 -0.072  0.010
-    ## 7   0.013  0.111  0.016  0.053  0.047  0.040  0.000  0.054 -0.053  0.005
-    ## 8  -0.053  0.035  0.486  0.001  0.018  0.005  0.787  0.000 -0.340 -0.057
-    ## 9  -0.386 -0.173  0.557 -0.302  0.190 -0.794 -0.204 -0.221  0.000 -0.390
-    ## 10  0.000  0.025 -1.127  0.724  0.089  0.028  1.489 -0.006 -0.868  0.000
+    ##       1      2      3      4      5      6
+    ## 1 0.000 -0.191  1.394  0.599  0.015  0.003
+    ## 2 0.015  0.000 -0.002  0.007 -0.249  0.336
+    ## 3 1.095 -0.228  0.000 -0.050  0.410  0.033
+    ## 4 0.015 -0.188 -0.009  0.000 -0.260 -0.061
+    ## 5 0.594 -0.170  0.420  0.599  0.000 -0.072
+    ## 6 0.017 -0.167 -0.676  0.035  0.026  0.000
 
 We now calculate a route between two points, by foot, using the
 `vl_route` function and calculate the elevation profile of the returned
