@@ -52,9 +52,10 @@ test_http_error <- function(r) {
   return(NULL)
 }
 
-get_results <- function(url) {
+get_results <- function(url, json_body) {
   req_handle <- curl::new_handle(verbose = FALSE)
-  curl::handle_setopt(req_handle, useragent = "valh_R_package")
+  curl::handle_setheaders(req_handle, "Content-Type" = "application/json", "User-Agent" = "valh_R_package")
+  curl::handle_setopt(req_handle, postfields = json_body)
   e <- try(
     {
       r <- curl::curl_fetch_memory(utils::URLencode(url), handle = req_handle)

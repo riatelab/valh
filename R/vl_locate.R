@@ -68,10 +68,11 @@ vl_locate <- function(loc, verbose = FALSE,
   }
 
   # Construct the URL
-  url <- paste0(base_url(server), "locate?json=", jsonlite::toJSON(json, auto_unbox = TRUE))
+  url <- paste0(base_url(server), "locate")
+  json_body <- jsonlite::toJSON(json, auto_unbox = TRUE)
 
-  # Send the request and handle possible errors
-  r <- get_results(url)
+  # Send the POST request and handle possible errors
+  r <- get_results(url, json_body)
 
   # Parse the response to a spatial data frame
   res <- jsonlite::fromJSON(rawToChar(r$content))

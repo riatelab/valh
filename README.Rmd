@@ -59,7 +59,7 @@ It demonstrates the use of  `vl_matrix`, `vl_route` and `vl_elevation` functions
 library(valh)
 library(sf)
 pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
-pharmacy <- pharmacy[1:10, ]
+pharmacy <- pharmacy[1:6, ]
 ```
 
 One of valhalla's strengths is that it allows you to use dynamic costing options at query time.
@@ -90,8 +90,8 @@ The object returned by `vl_matrix` is a list with 4 elements:
 
 
 ```{r}
-default_bike$durations[1:5, 1:5]
-road_bike$durations[1:5, 1:5]
+default_bike$durations
+road_bike$durations
 ```
 
 

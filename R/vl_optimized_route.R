@@ -76,14 +76,11 @@ vl_optimized_route <- function(loc, end_at_start = FALSE,
   }
 
   # Construct the URL
-  url <- paste0(
-    base_url(server),
-    "optimized_route?json=",
-    jsonlite::toJSON(json, auto_unbox = TRUE)
-  )
+  url <- paste0(base_url(server), "optimized_route")
+  json_body <- jsonlite::toJSON(json, auto_unbox = TRUE)
 
-  # Send the request and handle possible errors
-  r <- get_results(url)
+  # Send the POST request and handle possible errors
+  r <- get_results(url, json_body)
 
   # Parse the response
   res <- jsonlite::fromJSON(rawToChar(r$content))
