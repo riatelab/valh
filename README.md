@@ -17,7 +17,7 @@ network, and elevation data.
 
 This package relies on the usage of a [running Valhalla
 server](https://github.com/riatelab/valh?tab=readme-ov-file#installing-your-own-valhalla-server)
-(tested with versions 3.4.x and 3.5.x of Valhalla).
+(tested with versions 3.4.x, 3.5.x and 3.6.x of Valhalla).
 
 <img src="man/figures/map.png" align="center" width="500"/>
 
@@ -71,7 +71,7 @@ library(valh)
 library(sf)
 ```
 
-    ## Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
+    ## Linking to GEOS 3.13.1, GDAL 3.10.3, PROJ 9.6.0; sf_use_s2() is TRUE
 
 ``` r
 pharmacy <- st_read(system.file("gpkg/apotheke.gpkg", package = "valh"), quiet = TRUE)
@@ -160,7 +160,7 @@ plot(st_geometry(route), main = "Route between 2 pharmacies")
 plot(c(st_geometry(p1), st_geometry(p2)), pch = 21, cex = 2, add = TRUE)
 ```
 
-![](man/figures/READMEunnamed-chunk-8-1.png)<!-- -->
+![](man/figures/README-route-1.png)<!-- -->
 
 ``` r
 # We transform the LineString to Point geometries
@@ -180,11 +180,18 @@ plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), a
      main = "Elevation Profile")
 ```
 
-![](man/figures/READMEunnamed-chunk-10-1.png)<!-- -->
+![](man/figures/README-elevation-1.png)<!-- -->
 
 ## Installing your own Valhalla server
 
-We’ve included a
+`valh` uses the Valhalla demo server by default. The [Valhalla
+documentation](https://valhalla.github.io/valhalla/#demo-server) states
+that “usage of the demo server follows the usual fair-usage policy as
+OSRM & Nominatim demo servers (somewhat enforced by [rate
+limits](https://github.com/valhalla/valhalla/discussions/3373#discussioncomment-1644713))”.  
+This means that if you want to use Valhalla for a large number of
+requests, you will need to install it locally or on your own server.  
+To that end, we have included a
 [vignette](https://CRAN.R-project.org/package=valh/vignettes/install-valhalla.html)
 showing how to install your own instance of Valhalla, either locally or
 on a remote server, using Docker.

@@ -13,7 +13,7 @@ This package provides an interface to the Valhalla API from R.
 It allows you to query the Valhalla API for routes, isochrones, time-distance matrices,
 nearest point on the road network, and elevation data.
 
-This package relies on the usage of a [running Valhalla server](https://github.com/riatelab/valh?tab=readme-ov-file#installing-your-own-valhalla-server) (tested with versions 3.4.x and 3.5.x of Valhalla).
+This package relies on the usage of a [running Valhalla server](https://github.com/riatelab/valh?tab=readme-ov-file#installing-your-own-valhalla-server) (tested with versions 3.4.x, 3.5.x and 3.6.x of Valhalla).
 
 
 <img src="man/figures/map.png" align="center" width="500"/>  
@@ -118,7 +118,7 @@ plot(c(st_geometry(p1), st_geometry(p2)), pch = 21, cex = 2, add = TRUE)
 ```
 
 
-```{r, echo=FALSE, fig.path="man/figures/README", fig.width=3, fig.height=4, }
+```{r route, echo=FALSE, fig.path="man/figures/README-", fig.width=3, fig.height=4, }
 
 p1 <- pharmacy[3, ]
 p2 <- pharmacy[6, ]
@@ -143,7 +143,7 @@ distance to the first point) and 'height' (the altitude).
 
 We can use it to plot the elevation profile of the route.
 
-```{r, fig.width=7, fig.height=4,  fig.path="man/figures/README"}
+```{r elevation, fig.width=7, fig.height=4,  fig.path="man/figures/README-"}
 plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), asp = 100,
      main = "Elevation Profile")
 ```
@@ -151,7 +151,9 @@ plot(as.matrix(st_drop_geometry(elev)), type = "l", lwd = 2, ylim = c(20, 70), a
 
 ## Installing your own Valhalla server
 
-We've included a [vignette](https://CRAN.R-project.org/package=valh/vignettes/install-valhalla.html) showing how to install
+`valh` uses the Valhalla demo server by default. The [Valhalla documentation](https://valhalla.github.io/valhalla/#demo-server) states that "usage of the demo server follows the usual fair-usage policy as OSRM & Nominatim demo servers (somewhat enforced by [rate limits](https://github.com/valhalla/valhalla/discussions/3373#discussioncomment-1644713))".  
+This means that if you want to use Valhalla for a large number of requests, you will need to install it locally or on your own server.  
+To that end, we have included a [vignette](https://CRAN.R-project.org/package=valh/vignettes/install-valhalla.html) showing how to install
 your own instance of Valhalla, either locally or on a remote server, using Docker.
 
 ## Motivation & Alternatives
