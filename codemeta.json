@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/riatelab/valh",
   "issueTracker": "https://github.com/riatelab/valh/issues",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -144,5 +144,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "252.169KB"
+  "fileSize": "1082.037KB"
 }
